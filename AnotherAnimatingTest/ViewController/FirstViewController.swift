@@ -7,12 +7,16 @@
 
 import UIKit
 
-class FirstViewController: UIViewController, UICollectionViewDelegateFlowLayout  {
+class FirstViewController: UIViewController, UICollectionViewDelegateFlowLayout, FlowController  {
+    var completionHandler: ((CellData) -> ())?
+    
+    typealias T = CellData
+    
     
     enum Section {
         case main
     }
-
+    
     var selectedCell: TextCell?
     var selectedCellImageViewSnapshot: UIView?
 

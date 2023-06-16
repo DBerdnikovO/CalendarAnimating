@@ -12,4 +12,8 @@ class ModuleFactory {
     func createFirstViewController() -> FirstViewController {
         FirstViewController()
     }
+    
+    func createSecondViewController() -> SecondViewController {
+        SecondViewController()
+    }
 }
