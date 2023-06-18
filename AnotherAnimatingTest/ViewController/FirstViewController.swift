@@ -28,6 +28,7 @@ class FirstViewController: UIViewController, UICollectionViewDelegateFlowLayout,
         super.viewDidLoad()
         configureHierarchy()
         configureDataSource()
+        
     }
 
 }
@@ -61,9 +62,11 @@ extension FirstViewController {
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .white
         collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(collectionView)
     }
+    
     func configureDataSource() {
         let cellRegistration = UICollectionView.CellRegistration<TextCell, Int> { (cell, indexPath, identifier) in
             cell.configure()
@@ -72,7 +75,6 @@ extension FirstViewController {
         
         dataSource = UICollectionViewDiffableDataSource<Section, Int>(collectionView: collectionView) {
             (collectionView: UICollectionView, indexPath: IndexPath, identifier: Int) -> UICollectionViewCell? in
-            // Return the cell.
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
         }
         

@@ -15,7 +15,7 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
     let moduleFactory = ModuleFactory()
     
     var data: CellData?
-        
+    
     var flowCompletionHandler: CompletionHandler?
     
     init(navigationController: UINavigationController) {
@@ -24,6 +24,7 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
     
     func start() {
         showFirstViewController()
+        let navItem = UINavigationItem(title: "My Title")
         self.navigationController.delegate = self
         
     }
@@ -41,7 +42,7 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
     }
     
     func showSecondViewController(with data: CellData) {
-        print(data)
+        
         let controller = moduleFactory.createSecondViewController()
         
         controller.transitioningDelegate = navigationController.viewControllers.first as? any UIViewControllerTransitioningDelegate
@@ -51,24 +52,35 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
         navigationController.pushViewController(controller, animated: true)
         
     }
-
+    
 }
 
 extension Coordinator {
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        
-        guard let firstViewController = fromVC as? FirstViewController,
-              let secondViewController = toVC as? SecondViewController,
-              let selectedCellImageViewSnapshot = self.data?.selectedCellImageViewSnapshot
-        else { return nil }
-        
-        let animator = Animator(type: .present, firstViewController: firstViewController, secondViewController: secondViewController, selectedCellImageViewSnapshot: selectedCellImageViewSnapshot)
-         return animator
+        if fromVC is FirstViewController
+        {
+            return moveController(type: .present, from: fromVC, to: toVC)
+        }
+        else {
+            return moveController(type: .dismiss, from: toVC, to: fromVC)
+        }
     }
     
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        print(" ID ")
-            return nil
-        }
 }
 
+extension Coordinator {
+    
+    func moveController(type: PresentationType, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?{
+        if let firstViewController = fromVC as? FirstViewController,
+           let secondViewController = toVC as? SecondViewController,
+           let selectedCellImageViewFrame = self.data?.cellFrame{
+            let animator = Animator(type: type, firstViewController: firstViewController, secondViewController: secondViewController, selectedCellImageViewSnapshot: selectedCellImageViewFrame)
+            return animator
+            
+        }
+        else {
+            
+        }
+        return nil
+    }
+}

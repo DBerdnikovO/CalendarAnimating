@@ -9,7 +9,7 @@ import UIKit
 
 struct CellData {
     let image: UIImage
-    let selectedCellImageViewSnapshot: UIView
+    let cellFrame: UIView
 
 }
 
