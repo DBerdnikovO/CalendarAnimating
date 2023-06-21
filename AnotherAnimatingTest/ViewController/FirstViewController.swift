@@ -8,14 +8,16 @@
 import UIKit
 
 class FirstViewController: UIViewController, UICollectionViewDelegateFlowLayout, FlowController  {
-    var completionHandler: ((CellData) -> ())?
+    var completionHandler: ((TextCell) -> ())?
     
-    typealias T = CellData
+    typealias T = TextCell
     
     
     enum Section {
         case main
     }
+    
+    var initialCollectionViewFrame = CGRect()
     
     var selectedCell: TextCell?
     var selectedCellImageViewSnapshot: UIView?
@@ -28,7 +30,8 @@ class FirstViewController: UIViewController, UICollectionViewDelegateFlowLayout,
         super.viewDidLoad()
         configureHierarchy()
         configureDataSource()
-        
+        print(self.navigationController?.navigationBar.frame.height)
+
     }
 
 }
