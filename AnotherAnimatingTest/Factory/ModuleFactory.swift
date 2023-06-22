@@ -9,8 +9,9 @@ import Foundation
 
 class ModuleFactory {
     
-    func createFirstViewController() -> FirstViewController {
-        FirstViewController()
+    func createFirstViewController() -> FirstViewController? {
+        
+       return FirstViewController()
     }
     
     func createSecondViewController() -> SecondViewController {

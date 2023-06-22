@@ -27,18 +27,18 @@ final class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     //private let cellLabelRect: CGRect
     //
     //    // 10
-    init?(type: PresentationType, fromViewController: FirstViewController, toViewController: SecondViewController, selectedCellImageViewSnapshot: UIView, cell: TextCell) {
+    init?(type: PresentationType, fromViewController: FirstViewController, toViewController: SecondViewController, selectedCellImageViewSnapshot: UIView, cell: TextCell?) {
         self.type = type
         self.fromViewController = fromViewController
         
         self.toViewController = toViewController
         self.selectedCellImageViewSnapshot = selectedCellImageViewSnapshot
         
-        self.fromViewController.collectionView.transform = CGAffineTransform.identity
-        self.fromViewController.collectionView.collectionViewLayout.invalidateLayout()
+    //    self.fromViewController.calendarView.collectionView.transform = CGAffineTransform.identity
+        self.fromViewController.calendarView.collectionView.collectionViewLayout.invalidateLayout()
 
         guard let window = fromViewController.view.window ?? toViewController.view.window,
-              let selectedCell = fromViewController.selectedCell
+              let selectedCell = fromViewController.calendarView.selectedCell
         else { return nil }
         
         // 11
@@ -63,21 +63,21 @@ final class Animator: NSObject, UIViewControllerAnimatedTransitioning {
             toViewController.view.alpha = 0.0
          //   toViewController.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
             let height = self.fromViewController.topbarHeight
-            let visibleRect = CGRect(origin: fromViewController.collectionView.contentOffset, size: fromViewController.collectionView.bounds.size)
+            let visibleRect = CGRect(origin: fromViewController.calendarView.collectionView.contentOffset, size: fromViewController.calendarView.collectionView.bounds.size)
             
             
             // Perform the animation
             UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: {
-                self.fromViewController.collectionView.transform = CGAffineTransform(scaleX: 3, y: 3)
-                self.fromViewController.collectionView.frame.origin.y = -self.cell!.frame.minY * 3 + visibleRect.origin.y * 3 + height
-                self.fromViewController.collectionView.frame.origin.x =  -self.cell!.frame.minX * 3
+                self.fromViewController.calendarView.collectionView.transform = CGAffineTransform(scaleX: 3, y: 3)
+                self.fromViewController.calendarView.collectionView.frame.origin.y = -self.cell!.frame.minY * 3 + visibleRect.origin.y * 3 + height
+                self.fromViewController.calendarView.collectionView.frame.origin.x =  -self.cell!.frame.minX * 3
             }, completion: { finished in
                 self.toViewController.view.alpha = 1.0
                 self.toViewController.view.transform = CGAffineTransform.identity
                 transitionContext.completeTransition(finished)
             })
         } else {
-            self.fromViewController.collectionView.transform = CGAffineTransform.identity
+            self.fromViewController.calendarView.collectionView.transform = CGAffineTransform.identity
          //   self.fromViewController.collectionView.collectionViewLayout.invalidateLayout()
             let containerView = transitionContext.containerView
 
@@ -92,9 +92,8 @@ final class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
             // 21
             guard
-                let selectedCell = fromViewController.selectedCell,
+                let selectedCell = fromViewController.calendarView.selectedCell,
                 let window = fromViewController.view.window ?? toViewController.view.window,
-                let cellImageSnapshot = selectedCell.imageView.snapshotView(afterScreenUpdates: true),
                 let controllerImageSnapshot = toViewController.imageView.snapshotView(afterScreenUpdates: true)
     //            let cellLabelSnapshot = selectedCell.locationLabel.snapshotView(afterScreenUpdates: true), // 47
                // let closeButtonSnapshot = toViewController.closeButton.snapshotView(afterScreenUpdates: true) // 53
@@ -102,8 +101,6 @@ final class Animator: NSObject, UIViewControllerAnimatedTransitioning {
                     transitionContext.completeTransition(true)
                     return
             }
-
-            let isPresenting = type.isPresenting
 
             // 40
             let backgroundView: UIView
@@ -115,7 +112,7 @@ final class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
             [backgroundView, selectedCellImageViewSnapshot, controllerImageSnapshot].forEach { containerView.addSubview($0) }
 
-            fromViewController.collectionView.frame = fromViewController.initialCollectionViewFrame
+            fromViewController.calendarView.collectionView.frame = fromViewController.calendarView.initialCollectionViewFrame
             // 25
             let controllerImageViewRect = toViewController.imageView.convert(toViewController.imageView.bounds, to: window)
 
@@ -129,9 +126,12 @@ final class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
             // 36
             controllerImageSnapshot.alpha = 1
-            let pointInCollectionView = cell!.convert(cell!.contentView.frame.origin, to: fromViewController.collectionView)
-            let adjustedPoint = CGPoint(x: pointInCollectionView.x - fromViewController.collectionView.contentOffset.x, y: pointInCollectionView.y - fromViewController.collectionView.contentOffset.y)
-
+            let height = self.fromViewController.topbarHeight
+            let visibleRect = CGRect(origin: fromViewController.calendarView.collectionView.contentOffset, size: fromViewController.calendarView.collectionView.bounds.size)
+            print(visibleRect)
+            let pointInCollectionView = cell!.convert(cell!.contentView.frame.origin, to: fromViewController.calendarView.collectionView)
+            
+            print(self.cell!.frame)
             // 37
             selectedCellImageViewSnapshot.alpha = 0
 
@@ -142,10 +142,14 @@ final class Animator: NSObject, UIViewControllerAnimatedTransitioning {
 
                   
                     controllerImageSnapshot.frame = self.cell!.frame
-                    controllerImageSnapshot.frame.origin = adjustedPoint
+//                    controllerImageSnapshot.frame.origin = pointInCollectionView
+//                  //  controllerImageSnapshot.frame.origin.x += height
+//
+//                 //   controllerImageSnapshot.frame = self.cell!.frame
+
 
                     [controllerImageSnapshot, self.selectedCellImageViewSnapshot].forEach {
-                        $0.layer.cornerRadius = isPresenting ? 0 : 12
+                        $0.layer.cornerRadius = 12
                     }
                 }
 

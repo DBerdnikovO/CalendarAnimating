@@ -14,7 +14,7 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
     var navigationController: UINavigationController
     let moduleFactory = ModuleFactory()
     
-    var data: TextCell?
+    var didPressedCell: TextCell?
     
     var animator: Animator?
     
@@ -30,7 +30,7 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
     }
     
     func showFirstViewController() {
-        let controller = moduleFactory.createFirstViewController()
+        guard let controller = moduleFactory.createFirstViewController() else { return }
         
         controller.completionHandler = { [weak self] data in
             guard let self = self else { return }
@@ -47,9 +47,9 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
         
         controller.transitioningDelegate = navigationController.viewControllers.first as? any UIViewControllerTransitioningDelegate
         
-        self.data = data
-        controller.image = data.imageView.image
+        self.didPressedCell = data
         navigationController.pushViewController(controller, animated: true)
+        controller.selectedCell = data
         
     }
     
@@ -74,16 +74,16 @@ extension Coordinator {
     func moveController(type: PresentationType, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?{
         if let firstViewController = fromVC as? FirstViewController,
            let secondViewController = toVC as? SecondViewController,
-           let selectedCellImageViewFrame = self.data?.imageView,
-           let data = self.data{
+           let selectedCellImageViewFrame = self.didPressedCell?.imageView,
+           let data = self.didPressedCell{
            animator = Animator(type: type, fromViewController: firstViewController, toViewController: secondViewController, selectedCellImageViewSnapshot: selectedCellImageViewFrame, cell: data)
             return animator
             
         }
         else if let firstViewController = fromVC as? SecondViewController,
                 let secondViewController = toVC as? FirstViewController,
-                let selectedCellImageViewFrame = self.data?.imageView,
-                let data = self.data {
+                let selectedCellImageViewFrame = self.didPressedCell?.imageView,
+                let data = self.didPressedCell {
             let animator = Animator(type: type, fromViewController: secondViewController, toViewController: firstViewController, selectedCellImageViewSnapshot: selectedCellImageViewFrame, cell: data)
              return animator
         }

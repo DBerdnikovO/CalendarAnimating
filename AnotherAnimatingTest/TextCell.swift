@@ -30,6 +30,8 @@ class TextCell: UICollectionViewCell {
         return imageView
     }()
     
+    var indexPath: IndexPath?
+    
     weak var delegate:ExpandedCellDelegate?
 
     static let reuseIdentifier = "text-cell-reuse-identifier"
@@ -53,6 +55,7 @@ extension TextCell {
     func configure() {
         
         imageView.image = UIImage(named: "images/2")
+        imageView.contentMode = .scaleAspectFill
         self.backgroundColor = .yellow
         
     }
