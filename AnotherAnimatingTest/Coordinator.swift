@@ -74,17 +74,15 @@ extension Coordinator {
     func moveController(type: PresentationType, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning?{
         if let firstViewController = fromVC as? FirstViewController,
            let secondViewController = toVC as? SecondViewController,
-           let selectedCellImageViewFrame = self.didPressedCell?.imageView,
            let data = self.didPressedCell{
-           animator = Animator(type: type, fromViewController: firstViewController, toViewController: secondViewController, selectedCellImageViewSnapshot: selectedCellImageViewFrame, cell: data)
+           animator = Animator(type: type, fromViewController: firstViewController, toViewController: secondViewController, cell: data)
             return animator
             
         }
         else if let firstViewController = fromVC as? SecondViewController,
                 let secondViewController = toVC as? FirstViewController,
-                let selectedCellImageViewFrame = self.didPressedCell?.imageView,
                 let data = self.didPressedCell {
-            let animator = Animator(type: type, fromViewController: secondViewController, toViewController: firstViewController, selectedCellImageViewSnapshot: selectedCellImageViewFrame, cell: data)
+            let animator = Animator(type: type, fromViewController: secondViewController, toViewController: firstViewController, cell: data)
              return animator
         }
         return nil
