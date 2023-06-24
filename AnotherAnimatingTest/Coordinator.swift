@@ -75,14 +75,14 @@ extension Coordinator {
         if let firstViewController = fromVC as? FirstViewController,
            let secondViewController = toVC as? SecondViewController,
            let data = self.didPressedCell{
-           animator = Animator(type: type, fromViewController: firstViewController, toViewController: secondViewController, cell: data)
+            let animator = NewAnimator(type: type, fromViewController: firstViewController, toViewController: secondViewController, cell: data)
             return animator
             
         }
         else if let firstViewController = fromVC as? SecondViewController,
                 let secondViewController = toVC as? FirstViewController,
                 let data = self.didPressedCell {
-            let animator = Animator(type: type, fromViewController: secondViewController, toViewController: firstViewController, cell: data)
+            let animator = NewAnimator(type: type, fromViewController: secondViewController, toViewController: firstViewController, cell: data)
              return animator
         }
         return nil

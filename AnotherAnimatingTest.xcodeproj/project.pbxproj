@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B1CE3AD2A45CDB4004F1476 /* NewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CE3AC2A45CDB4004F1476 /* NewAnimator.swift */; };
 		5B60361A2A3C5B3300E5C4C8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6036192A3C5B3300E5C4C8 /* Coordinator.swift */; };
 		5B60361C2A3C5EDA00E5C4C8 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B60361B2A3C5EDA00E5C4C8 /* Animator.swift */; };
 		5B60361E2A3C6D4D00E5C4C8 /* CoordinatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B60361D2A3C6D4D00E5C4C8 /* CoordinatorFactory.swift */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B1CE3AC2A45CDB4004F1476 /* NewAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAnimator.swift; sourceTree = "<group>"; };
 		5B6036192A3C5B3300E5C4C8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		5B60361B2A3C5EDA00E5C4C8 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		5B60361D2A3C6D4D00E5C4C8 /* CoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactory.swift; sourceTree = "<group>"; };
@@ -113,9 +115,9 @@
 				5BBE12E02A39C94900976B79 /* FirstViewController.swift */,
 				5B70C0F82A432A3100F1582D /* FirstView.swift */,
 				5B70C0FA2A443F6600F1582D /* FirstViewDelegate.swift */,
+				5B1CE3AC2A45CDB4004F1476 /* NewAnimator.swift */,
 				5BBE13102A39CBF700976B79 /* SecondViewController.swift */,
 				5B70C0F62A43258300F1582D /* SecondView.swift */,
-				5B60361B2A3C5EDA00E5C4C8 /* Animator.swift */,
 				5B770D882A3F3094009D0400 /* UIViewControllerExtension.swift */,
 			);
 			path = ViewController;
@@ -153,6 +155,7 @@
 				5BBE12EA2A39C94B00976B79 /* Info.plist */,
 				5BBE130C2A39CAA300976B79 /* SetupViewValue.swift */,
 				5BBE130E2A39CAF000976B79 /* TextCell.swift */,
+				5B60361B2A3C5EDA00E5C4C8 /* Animator.swift */,
 				5BBE13162A39F12D00976B79 /* App */,
 			);
 			path = AnotherAnimatingTest;
@@ -315,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B70C0FB2A443F6600F1582D /* FirstViewDelegate.swift in Sources */,
+				5B1CE3AD2A45CDB4004F1476 /* NewAnimator.swift in Sources */,
 				5B70C0F92A432A3100F1582D /* FirstView.swift in Sources */,
 				5B70C0F72A43258300F1582D /* SecondView.swift in Sources */,
 				5BBE130F2A39CAF000976B79 /* TextCell.swift in Sources */,
