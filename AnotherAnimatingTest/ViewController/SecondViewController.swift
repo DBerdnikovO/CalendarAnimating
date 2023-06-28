@@ -14,25 +14,33 @@ struct CellData {
 }
 
 class SecondViewController: UIViewController {
+  
     
-    weak var second: SecondView?  {
+    var second: SecondView?  {
         didSet {
             self.view = second
-            second?.selectedCell = selectedCell
+            second?.selectedCell = selectedCell?.indexPath
         }
     }
     
-    weak var selectedCell: TextCell? 
+    var selectedCell: FirstMonthCell?
+    var viewModel: CalendarViewModel = CalendarViewModel.shared()
+    
     
 
     override func loadView() {
         let calendarView = SecondView(frame: UIScreen.main.bounds)
+        calendarView.month = viewModel.getMonths()
         self.second = calendarView
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
   }
+    override func viewWillDisappear(_ animated: Bool) {
+      
+    }
 
 }

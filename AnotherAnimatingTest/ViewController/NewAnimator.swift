@@ -6,6 +6,29 @@
 
 import UIKit
 
+enum SectionColelctionViewCell {
+    
+    case left
+    case center
+    case right
+    
+}
+
+extension CGRect {
+    
+    init?(view: UIView, section: SectionColelctionViewCell) {
+        switch section {
+        case .left:
+            self.init(x: -view.frame.width, y: view.frame.height, width: view.frame.width, height: view.frame.height)
+        case .center:
+            self.init(x: view.frame.midX - view.frame.width/2, y: view.frame.height, width: view.frame.width, height: view.frame.height)
+        case .right:
+            self.init(x: view.frame.width, y: view.frame.height, width: view.frame.width, height: view.frame.height)
+        }
+    }
+    
+}
+
 final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     static let duration: TimeInterval = 1.25
@@ -14,9 +37,9 @@ final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     private let type: PresentationType
     private var fromViewController: FirstViewController
     private var toViewController: SecondViewController
-    private let cell: TextCell?
+    private let cell: FirstMonthCell?
     
-    init?(type: PresentationType, fromViewController: FirstViewController, toViewController: SecondViewController, cell: TextCell?) {
+    init?(type: PresentationType, fromViewController: FirstViewController, toViewController: SecondViewController, cell: FirstMonthCell?) {
         self.type = type
         self.fromViewController = fromViewController
         self.toViewController = toViewController
@@ -35,29 +58,27 @@ final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let containerView = transitionContext.containerView
         let toView = type.isPresenting ? toViewController.view : fromViewController.view
         let targetViewController = type.isPresenting ? toViewController : fromViewController
-        let transform = self.type.isPresenting ? CGAffineTransform(scaleX: 3, y: 3) : CGAffineTransform.identity
-        let height = fromViewController.topbarHeight
+        let transform = CGAffineTransform(scaleX: 3, y: 3)
+        let height = type.isPresenting ? fromViewController.topbarHeight : toViewController.topbarHeight
         let visibleRect = CGRect(origin: fromViewController.calendarView.collectionView.contentOffset, size: fromViewController.calendarView.collectionView.bounds.size)
-        
+   
         guard let cell = cell, let targetView = toView else {
             transitionContext.completeTransition(false)
             return
         }
         
-        if !type.isPresenting {
-            print(height, visibleRect)
-            adjustCollectionViewPosition(visibleRect: visibleRect, height: height)
-        }
-        
         containerView.addSubview(targetView)
         targetView.alpha = type.isPresenting ? 0.0 : 1.0
+        
+        if !type.isPresenting {
+           adjustCollectionViewPosition(transform: transform, visibleRect: visibleRect, height: height)
+        }
         
         let animations: () -> Void = { [weak self] in
             guard let self = self else { return }
             if targetViewController is SecondViewController {
-                self.fromViewController.calendarView.collectionView.transform = transform
-                self.fromViewController.calendarView.collectionView.frame.origin.y = -cell.frame.minY * 3 + visibleRect.origin.y * 3 + height
-                self.fromViewController.calendarView.collectionView.frame.origin.x = -cell.frame.minX * 3 + self.contentInsets.bottom * 3
+                adjustCollectionViewPosition(transform: transform, visibleRect: visibleRect, height: height)
+
             } else {
                 self.fromViewController.calendarView.collectionView.transform = CGAffineTransform(scaleX: 1, y: 1)
                 self.fromViewController.calendarView.collectionView.frame = self.fromViewController.calendarView.initialCollectionViewFrame
@@ -65,25 +86,23 @@ final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         }
         
         
-        let completion: (Bool) -> Void = { [weak self]  finished in
+        let completion: (Bool) -> Void = { [weak self] finished in
             guard let self = self else { return }
             if self.type.isPresenting {
                 self.toViewController.view.alpha = 1.0
-                self.toViewController.view.transform = CGAffineTransform.identity
             } else {
-                cell.imageView.snapshotView(afterScreenUpdates: true)?.removeFromSuperview()
+                cell.monthView.snapshotView(afterScreenUpdates: true)?.removeFromSuperview()
             }
             transitionContext.completeTransition(finished)
         }
-        
         UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: animations, completion: completion)
     }
     
-    func adjustCollectionViewPosition(visibleRect: CGRect, height: CGFloat) {
+    func adjustCollectionViewPosition(transform: CGAffineTransform, visibleRect: CGRect, height: CGFloat) {
         guard let cell = cell else { return }
-        fromViewController.calendarView.collectionView.transform = CGAffineTransform(scaleX: 3, y: 3)
-        fromViewController.calendarView.collectionView.frame.origin.y = -cell.frame.minY * 3 + visibleRect.origin.y * 3 + height * 2
+        fromViewController.calendarView.collectionView.transform = transform
+        fromViewController.calendarView.collectionView.frame.origin.y = -cell.frame.minY * 3 + visibleRect.origin.y * 3 + height
         fromViewController.calendarView.collectionView.frame.origin.x =  -cell.frame.minX * 3 + self.contentInsets.bottom * 3
-        
+
     }
 }

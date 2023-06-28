@@ -14,7 +14,7 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
     var navigationController: UINavigationController
     let moduleFactory = ModuleFactory()
     
-    var didPressedCell: TextCell?
+    var didPressedCell: FirstMonthCell?
     
     var animator: Animator?
     
@@ -41,13 +41,15 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
         
     }
     
-    func showSecondViewController(with data: TextCell) {
+    func showSecondViewController(with data: FirstMonthCell) {
 
         let controller = moduleFactory.createSecondViewController()
         
         controller.transitioningDelegate = navigationController.viewControllers.first as? any UIViewControllerTransitioningDelegate
         
         self.didPressedCell = data
+//        controller.selectedCell = data
+
         navigationController.pushViewController(controller, animated: true)
         controller.selectedCell = data
         

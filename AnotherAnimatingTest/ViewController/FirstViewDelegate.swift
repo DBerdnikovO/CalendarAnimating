@@ -8,5 +8,6 @@
 import Foundation
 
 protocol FirstViewDelegate: AnyObject {
-    func didSelectCell(cell: TextCell)
+    func didSelectCell(cell: FirstMonthCell)
 }
+
