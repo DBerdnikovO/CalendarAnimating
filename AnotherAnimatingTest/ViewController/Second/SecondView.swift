@@ -11,9 +11,9 @@ class SecondView: UIView, UICollectionViewDelegate{
     
     static let sectionHeaderElementKind = "second-header-element-kind"
     
-    weak var delegate: FirstViewDelegate?
-    
-    
+    weak var delegate: SecondViewDelegate?
+        
+    var getMiddleSection: ((IndexPath)->())?
     
     var month: [Int:[MonthViewModel?]]!  {
         didSet {
@@ -143,5 +143,107 @@ extension SecondView {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
+    
+    func getMidlleCellOnDisplay() -> IndexPath {
+        var indexPathes = [IndexPath]()
+        let visibleCells = collectionView.visibleCells
+        
+        for a in visibleCells {
+            let b = a as? SecondMonthCell
+            indexPathes.append((b?.indexPath)!)
+        }
+        return convertAndCalculateMiddle(indexPaths: indexPathes)
+    }
+    
+    func convertAndCalculateMiddle(indexPaths: [IndexPath]) -> IndexPath {
+        var convertedNumbers = [Int]()
+        
+        for indexPath in indexPaths {
+            let section = indexPath.section
+            let row = indexPath.row
+            
+            var number = 0
+            
+            if section == 0 {
+                number = row + 1
+            } else {
+                let sectionMultiplier = Int(pow(10.0, Double(section)))
+                number = (sectionMultiplier * 10) + row
+            }
+            
+            convertedNumbers.append(number)
+        }
+        
+        let sortedNumbers = convertedNumbers.sorted()
+        let middleIndex = sortedNumbers.count / 2
+        let middleValue = sortedNumbers[middleIndex]
+        
+        if middleValue < 10 {
+            return IndexPath(row: middleValue - 1, section: 0)
+        } else {
+            let section = Int(log10(Double(middleValue)))
+            let row = middleValue % 10
+            return IndexPath(row: row, section: section)
+        }
+    }
+         
+//    
+//    private func appendNewSections(atTop: Bool = false) {
+//
+//        if atTop {
+//            DispatchQueue.main.async(execute: {
+//
+//                CATransaction.begin()
+//                CATransaction.setDisableActions(true)
+//
+//                let contentHeight = self.collectionView.contentSize.height
+//                let offsetY = self.collectionView.contentOffset.y
+//                let firstSection = self.calendarViewModelController.getFirstValue()
+//
+//                let bottomOffset = contentHeight - offsetY
+//                let newFirstSection = firstSection - 1
+//
+//
+//                self.calendarViewModelController.getYearInSection(year: newFirstSection, isUp: true)
+//                self.calendarViewModelController.getYearSection {[weak self] sections in
+//                    guard let newItems = sections[newFirstSection] else { return }
+//                    guard let strogSelf = self else { return }
+//                    strogSelf.snapshot.insertSections([newFirstSection], beforeSection: firstSection)
+//                    strogSelf.snapshot.appendItems(newItems,toSection: newFirstSection)
+//                }
+//
+//                self.collectionView.performBatchUpdates ({
+//                    self.applySnapshot()
+//                }, completion: { finished in
+//                    self.collectionView.layoutIfNeeded()
+//                    self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottomOffset)
+//                    CATransaction.commit()
+//                })
+//            })
+//        }
+//        else {
+//            let lastSection = calendarViewModelController.getLastValue()
+//            let newLastSection = lastSection + 1
+//            calendarViewModelController.getYearInSection(year: newLastSection, isUp: false)
+//            calendarViewModelController.getYearSection {[weak self] sections in
+//                guard let strongSelf = self else { return }
+//                guard let newItems = sections[newLastSection] else { return }
+//                strongSelf.snapshot.appendSections([newLastSection])
+//                strongSelf.snapshot.appendItems(newItems)
+//                strongSelf.applySnapshot()
+//            }
+//        }
+//    }
+//    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let offsetY = scrollView.contentOffset.y
+//        let contentHeight = scrollView.contentSize.height
+//        let height = scrollView.frame.size.height
+//        if offsetY > contentHeight - height {
+//            appendNewSections()
+//        } else if offsetY < 0{
+//            appendNewSections(atTop: true)
+//        }
+//    }
 }
 

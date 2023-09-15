@@ -13,13 +13,24 @@ struct CellData {
 
 }
 
-class SecondViewController: UIViewController {
-  
+protocol SecondViewDelegate: AnyObject {
+    func getFirstValue()
+    func getYearInSection()
+    func getYearSection()
+}
+
+class SecondViewController: UIViewController, SecondViewDelegate {
     
-    var second: SecondView?  {
+  
+    var coordinator: Coordinator?
+    
+    var completion: ((IndexPath) -> ())?
+    
+    weak var second: SecondView?  {
         didSet {
             self.view = second
             second?.selectedCell = selectedCell?.indexPath
+            second?.delegate = self
         }
     }
     
@@ -39,8 +50,22 @@ class SecondViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .blue
   }
+    
     override func viewWillDisappear(_ animated: Bool) {
-      
-    }
 
+        guard let secondView = second else { return }
+        coordinator?.passDataBack(data: secondView.getMidlleCellOnDisplay())
+    }
+    
+    func getFirstValue() {
+        print("FIRST")
+    }
+    
+    func getYearInSection() {
+        print("YEAR")
+    }
+    
+    func getYearSection() {
+        print("Section")
+    }
 }

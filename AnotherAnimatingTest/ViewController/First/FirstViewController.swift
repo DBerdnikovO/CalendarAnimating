@@ -8,14 +8,17 @@
 import UIKit
 
 class FirstViewController: UIViewController, FlowController, FirstViewDelegate  {
+
+    var coordinator: Coordinator?
     
     var completionHandler: ((FirstMonthCell) -> ())?
+
     
     typealias T = FirstMonthCell
     
     private let viewModel: CalendarViewModel = CalendarViewModel.shared()
     
-    var calendarView: FirstView! {
+    weak var calendarView: FirstView! {
         guard isViewLoaded else { return nil }
         return (view as? FirstView)
     }
@@ -34,6 +37,23 @@ class FirstViewController: UIViewController, FlowController, FirstViewDelegate  
     
     func didSelectCell(cell: FirstMonthCell) {
         completionHandler?(cell)
+    }
+    
+    func getFirstValue()-> Int {
+        return 0
+    }
+    
+    func getYearInSection(year: Int, isUp: Bool) {
+        print("AS")
+    }
+    
+    func getYearSection(complition: ([Int : [MonthViewModel?]]) -> Void) {
+        print("ASd")
+    }
+    
+    
+    func getLastValue() -> Int {
+        return 0
     }
         
 }

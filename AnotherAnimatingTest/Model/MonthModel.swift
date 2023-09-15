@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MonthViewModel: Hashable {
+struct MonthModel: Hashable {
 
     var id = Int.random(in: 0..<Int.max)
 
@@ -22,7 +22,7 @@ struct MonthViewModel: Hashable {
 
     }
 
-    static func == (lhs: MonthViewModel, rhs: MonthViewModel) -> Bool {
+    static func == (lhs: MonthModel, rhs: MonthModel) -> Bool {
         lhs.id == rhs.id
     }
     func hash(into hasher: inout Hasher) {
