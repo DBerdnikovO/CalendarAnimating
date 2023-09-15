@@ -9,95 +9,89 @@ import Foundation
 
 class CalendarViewModel {
 
-    private var years: [Int] = [Int]() {
+    // MARK: - Properties
+    
+    private var years: [Int] = [] {
         didSet {
-            self.bindYearsViewModelToController()
+            bindYearsViewModelToController()
         }
     }
 
-    
-    private var monthInYear: [Int:[MonthViewModel?]] = [Int:[MonthViewModel?]]() {
+    private var monthInYear: [Int: [MonthModel?]] = [:] {
         didSet {
-            self.bindMonthInYearsSectionViewModelToController()
+            bindMonthInYearsSectionViewModelToController()
         }
     }
     
-    var bindMonthInYearsSectionViewModelToController : (() -> ()) = {}
-    var bindYearsViewModelToController : (() -> ()) = {}
+    var bindMonthInYearsSectionViewModelToController: (() -> ()) = {}
+    var bindYearsViewModelToController: (() -> ()) = {}
 
-    private static var uniqueInstance: CalendarViewModel?
+    static let shared: CalendarViewModel = CalendarViewModel()
 
-        private init() {        getFirstThreeYears()
-}
-
-        static func shared() -> CalendarViewModel {
-            if uniqueInstance == nil {
-                uniqueInstance = CalendarViewModel()
-            }
-            return uniqueInstance!
-        }
-
-   
-    
-    func getYearInSection(year: Int, isUp: Bool) {
-
-        var myView = [MonthViewModel]()
-        for month in 1...12 {
-            let monhtArray = getMonthArray(for: year, month: month)
-            let newModel = MonthViewModel(monthArray: monhtArray, monthName: MonthName(rawValue: month)!.name, monthYear: year)
-            myView.append(newModel)
-        }
-        if isUp {
-            years.insert(year, at: 0)
-        }
-        else {
-            
-            years.append(year)
-
-        }
-        monthInYear[year] = myView
+    private init() {
+        getInitialYears()
     }
 
-    func getSections() -> [Int] {
-        years
+    // MARK: - Public Methods
+    
+    func getYearSections() -> [Int] {
+        return years
     }
     
-    func getMonths() -> [Int:[MonthViewModel?]] {
+    func getMonths() -> [Int: [MonthModel?]] {
         return monthInYear
     }
 
-    func getYearSection(complition: ([Int:[MonthViewModel?]])-> Void) {
-        complition(monthInYear)
+    func getYearSection(completion: ([Int: [MonthModel?]]) -> Void) {
+        completion(monthInYear)
     }
 
-    func getFirstValue() -> Int {
-        guard let firstSection = years.first else { return 0 }
-        return firstSection
+    func getFirstYearValue() -> Int {
+        return years.first ?? 0
     }
 
-    func getLastValue() -> Int {
-        guard let lastSection = years.last else { return 0 }
-        return lastSection
+    func getLastYearValue() -> Int {
+        return years.last ?? 0
     }
     
-    func getFirstThreeYears() {
-        for yea in -1...1 {
-            getYearInSection(year: Calendar.current.component(.year, from: Date()) + yea, isUp: false)
+    func fetchYear(year: Int, prepend: Bool) {
+        let months = (1...12).compactMap { month -> MonthModel? in
+            let monthArray = calculateMonthArray(for: year, month: month)
+            return MonthModel(monthArray: monthArray, monthName: MonthName(rawValue: month)?.name ?? "", monthYear: year)
+        }
+        
+        if prepend {
+            years.insert(year, at: 0)
+        } else {
+            years.append(year)
+        }
+        
+        monthInYear[year] = months
+    }
+
+    // MARK: - Private Methods
+    
+    private func getInitialYears() {
+        let currentYear = Calendar.current.component(.year, from: Date())
+        for offset in -1...1 {
+            fetchYear(year: currentYear + offset, prepend: false)
         }
     }
 
-    private func getMonthArray(for year: Int, month: Int) -> [[Int]] {
+    private func calculateMonthArray(for year: Int, month: Int) -> [[Int]] {
         var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = TimeZone(secondsFromGMT: 4 * 60 * 60)!
-        var components = DateComponents()
-        components.year = year
-        components.month = month
-        components.day = 1
-        let firstDayOfMonth = calendar.date(from: components)!
+        calendar.timeZone = TimeZone(secondsFromGMT: 4 * 60 * 60) ?? .current
+        
+        guard let firstDayOfMonth = calendar.date(from: DateComponents(year: year, month: month, day: 1)),
+              let monthRange = calendar.range(of: .day, in: .month, for: firstDayOfMonth) else {
+            return []
+        }
+        
         var weekday = calendar.component(.weekday, from: firstDayOfMonth)
-        if DateFormatter().weekdaySymbols[weekday-1] == "Sunday" {
+        if DateFormatter().weekdaySymbols[weekday - 1] == "Sunday" {
             weekday = 8
         }
+        
         var monthArray = [[Int]](repeating: [Int](repeating: 0, count: 7), count: 6)
         var day = 1
 
@@ -106,7 +100,7 @@ class CalendarViewModel {
                 if i == 0 && j < weekday - 2 {
                     continue
                 }
-                if day > calendar.range(of: .day, in: .month, for: firstDayOfMonth)!.count {
+                if day > monthRange.count {
                     break
                 }
                 monthArray[i][j] = day
@@ -116,5 +110,4 @@ class CalendarViewModel {
 
         return monthArray
     }
-
 }

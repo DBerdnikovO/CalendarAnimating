@@ -5,4 +5,12 @@
 //  Created by Данила Бердников on 14.07.2023.
 //
 
-import Foundation
+import UIKit
+
+class TaskView {
+    
+    lazy var taskView = UIView()
+    
+    
+    
+}

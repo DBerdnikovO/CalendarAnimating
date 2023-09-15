@@ -34,6 +34,7 @@ extension YearsHeaderView {
             yearsLabel.topAnchor.constraint(equalTo: topAnchor, constant: inset),
             yearsLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -inset)
         ])
+        yearsLabel.textColor = .red
         yearsLabel.font = UIFont.preferredFont(forTextStyle: .title3)
     }
 }

@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "E9A8555D-3586-4504-B3E8-71EEA7984CE4"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F2F21671-FB91-496D-998A-7712C7281B5E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/FirstViewController+Delegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "F2F21671-FB91-496D-998A-7712C7281B5E - cc6d5d7a8fda5d4b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forDismissed: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "33"
+                  endingLineNumber = "33"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "F2F21671-FB91-496D-998A-7712C7281B5E - cc6d5d7a8fda5d64"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forDismissed: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AC23A639-670D-4AD5-A64C-43E3DD4B54F3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/FirstViewController+Delegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "AC23A639-670D-4AD5-A64C-43E3DD4B54F3 - fd6d79dcdc5a3951"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "AC23A639-670D-4AD5-A64C-43E3DD4B54F3 - fd6d79dcdc5a3e1f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "236">
+               </Location>
+               <Location
+                  uuid = "AC23A639-670D-4AD5-A64C-43E3DD4B54F3 - fd6d79dcdc5a3e1f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "360">
+               </Location>
+               <Location
+                  uuid = "AC23A639-670D-4AD5-A64C-43E3DD4B54F3 - fd6d79dcdc5a3e1f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "244">
+               </Location>
+               <Location
+                  uuid = "AC23A639-670D-4AD5-A64C-43E3DD4B54F3 - fd6d79dcdc5a3e1f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15"
+                  offsetFromSymbolStart = "368">
+               </Location>
+               <Location
+                  uuid = "AC23A639-670D-4AD5-A64C-43E3DD4B54F3 - fd6d79dcdc5a39dd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "412">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5D51BDDE-6A92-436A-9F0A-BFF287057169"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/Animator.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "transitionDuration(using:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F3B02736-13C0-4876-BEA3-41DBD003411B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/FirstViewController+Delegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "F3B02736-13C0-4876-BEA3-41DBD003411B - fd6d79dcdc5a3e3e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  uuid = "F3B02736-13C0-4876-BEA3-41DBD003411B - fd6d79dcdc5a3e3e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "216">
+               </Location>
+               <Location
+                  uuid = "F3B02736-13C0-4876-BEA3-41DBD003411B - fd6d79dcdc5a3e3e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  uuid = "F3B02736-13C0-4876-BEA3-41DBD003411B - fd6d79dcdc5a3e3e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "80">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4C3F9FC4-AF83-4D65-8A02-665F8D539142"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/FirstViewController+Delegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "4C3F9FC4-AF83-4D65-8A02-665F8D539142 - fd6d79dcdc5a3848"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  uuid = "4C3F9FC4-AF83-4D65-8A02-665F8D539142 - fd6d79dcdc5a3829"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AnotherAnimatingTest.FirstViewController.animationController(forPresented: __C.UIViewController, presenting: __C.UIViewController, source: __C.UIViewController) -&gt; Swift.Optional&lt;__C.UIViewControllerAnimatedTransitioning&gt;"
+                  moduleName = "AnotherAnimatingTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/danilaberdnikov/Desktop/AnotherAnimatingTest/AnotherAnimatingTest/FirstViewController+Delegate.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "196">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "189F6FC9-FE5F-4CAE-B52E-F7AA5F1246C9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/FirstViewController+Delegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D52D5E10-7694-4444-9B0A-7BA36B684B3F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/FirstViewController+Delegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3C4ACB07-3937-4E38-B2BC-67870EF62D6B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/ViewController/FirstViewControllerDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "8"
+            endingLineNumber = "8">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5DA346E8-1DED-4855-878C-D601B4F81225"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/App/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "scene(_:willConnectTo:options:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FE6DEE33-3CCA-4A9D-AB4F-59229D4AA7B0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/App/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "scene(_:willConnectTo:options:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4B288449-C380-48B1-9C60-60E62C8311E1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/App/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "sceneDidDisconnect(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E42AAF09-7411-4D63-96E9-2F652F16977C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/App/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "sceneDidBecomeActive(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2C0ECAF4-1ACB-47FB-B660-1C2728B9376B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/App/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "sceneWillResignActive(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C0AAFACA-F4E6-4455-8DF4-12FC229820F2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/App/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "sceneWillEnterForeground(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A3F56DFE-F71E-4911-9D73-3D24A97947DE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/App/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "sceneDidEnterBackground(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5BA87874-E2DC-4860-8604-1A8153BFF17E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/App/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "sceneDidDisconnect(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "896A9963-87E2-406C-BB18-7795BFFE007F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/ViewController/FirstViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "loadView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DE046BB3-9A42-4C2F-A241-74FC2B980E3A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/ViewController/FirstViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "loadView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "73578392-3803-47F3-8C97-B3360EE521D4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AnotherAnimatingTest/ViewController/FirstView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

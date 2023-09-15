@@ -7,7 +7,55 @@
 
 import UIKit
 
-class SecondView: UIView, UICollectionViewDelegate{
+class SecondView: UIView, SecondDelegate{
+    
+    lazy var isOpen = false
+    let customView = UIView()
+
+    func getTappedData(data: TaskModel) {
+    
+//        let layout = UICollectionViewFlowLayout()
+//        layout.itemSize = CGSize(width: 50, height: 50)
+//        layout.minimumInteritemSpacing = 10
+//        layout.minimumLineSpacing = 10
+//
+//        customView.addSubview(UICollectionView(frame: customView.frame))
+//        if isOpen {
+//            isOpen = false
+//
+//            delegate?.goThirdController(task: data, isOpen: isOpen)
+//
+//        } else {
+//            isOpen = true
+//
+//            delegate?.goThirdController(task: data, isOpen: isOpen)
+//        }
+//        if isOpen {
+//            
+//            
+//            UIView.animate(withDuration: 0.5) {
+//                self.customView.frame.origin.y = self.frame.height
+//                    } completion: { _ in
+//                        self.customView.removeFromSuperview()
+//                        self.isOpen = false
+//                    }
+//      
+//        } else {
+//            let startFrame =  CGRect(x: 0, y: frame.height, width: frame.width, height: frame.height/2)
+//            customView.frame = startFrame
+//            customView.backgroundColor = UIColor.red // Set your desired background color
+//            addSubview(customView)
+//            customView.layer.cornerRadius = 10
+//            customView.clipsToBounds = true
+//
+//            UIView.animate(withDuration: 0.5) {
+//                self.customView.frame.origin.y = self.frame.height/2
+//            }
+//            isOpen = true
+//        }
+
+    }
+    
     
     static let sectionHeaderElementKind = "second-header-element-kind"
     
@@ -15,7 +63,7 @@ class SecondView: UIView, UICollectionViewDelegate{
         
     var getMiddleSection: ((IndexPath)->())?
     
-    var month: [Int:[MonthViewModel?]]!  {
+    var month: [Int:[MonthModel?]]!  {
         didSet {
             years = month.keys.sorted()
             configureDataSource()
@@ -35,8 +83,8 @@ class SecondView: UIView, UICollectionViewDelegate{
     }
     var selectedCellImageViewSnapshot: UIView?
     
-    private var snapshot = NSDiffableDataSourceSnapshot<Int, MonthViewModel?>()
-    var dataSource: UICollectionViewDiffableDataSource<Int, MonthViewModel?>! = nil
+    private var snapshot = NSDiffableDataSourceSnapshot<Int, MonthModel?>()
+    var dataSource: UICollectionViewDiffableDataSource<Int, MonthModel?>! = nil
     var collectionView: UICollectionView! = nil
     
     override init(frame: CGRect) {
@@ -61,15 +109,16 @@ extension SecondView {
     func configureHierarchy() {
         collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: createLayout(type: ViewZoom.second))
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .brown
-        collectionView.delegate = self
+        collectionView.backgroundColor = .black
+//        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         self.addSubview(collectionView)
     }
     
     func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<SecondMonthCell, MonthViewModel> { cell, indexPath, viewModel in
+        let cellRegistration = UICollectionView.CellRegistration<SecondMonthCell, MonthModel> { cell, indexPath, viewModel in
+            cell.delegate = self
             cell.configure(with: viewModel, indexPath: indexPath)
         }
         
@@ -87,7 +136,7 @@ extension SecondView {
             supplementaryView.layer.borderWidth = 1.0
         }
         
-        dataSource = UICollectionViewDiffableDataSource<Int, MonthViewModel?>(collectionView: collectionView) {
+        dataSource = UICollectionViewDiffableDataSource<Int, MonthModel?>(collectionView: collectionView) {
             collectionView, indexPath, itemIdentifire in
             
             collectionView.dequeueConfiguredReusableCell(
@@ -144,49 +193,18 @@ extension SecondView {
         return layout
     }
     
-    func getMidlleCellOnDisplay() -> IndexPath {
-        var indexPathes = [IndexPath]()
-        let visibleCells = collectionView.visibleCells
+    func getMiddleCellOnDisplay() -> IndexPath? {
+        let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
+        let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
         
-        for a in visibleCells {
-            let b = a as? SecondMonthCell
-            indexPathes.append((b?.indexPath)!)
+        if let indexPath = collectionView.indexPathForItem(at: visiblePoint) {
+            return (indexPath)
         }
-        return convertAndCalculateMiddle(indexPaths: indexPathes)
+        
+        return nil
     }
     
-    func convertAndCalculateMiddle(indexPaths: [IndexPath]) -> IndexPath {
-        var convertedNumbers = [Int]()
-        
-        for indexPath in indexPaths {
-            let section = indexPath.section
-            let row = indexPath.row
-            
-            var number = 0
-            
-            if section == 0 {
-                number = row + 1
-            } else {
-                let sectionMultiplier = Int(pow(10.0, Double(section)))
-                number = (sectionMultiplier * 10) + row
-            }
-            
-            convertedNumbers.append(number)
-        }
-        
-        let sortedNumbers = convertedNumbers.sorted()
-        let middleIndex = sortedNumbers.count / 2
-        let middleValue = sortedNumbers[middleIndex]
-        
-        if middleValue < 10 {
-            return IndexPath(row: middleValue - 1, section: 0)
-        } else {
-            let section = Int(log10(Double(middleValue)))
-            let row = middleValue % 10
-            return IndexPath(row: row, section: section)
-        }
-    }
-         
+    
 //    
 //    private func appendNewSections(atTop: Bool = false) {
 //

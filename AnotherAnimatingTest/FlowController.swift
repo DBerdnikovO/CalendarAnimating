@@ -7,8 +7,8 @@
 
 import Foundation
 
-protocol FlowController: class {
+protocol FlowController: AnyObject {
     
     associatedtype T
-    var completionHandler: ((T)->())? { get set }
+    var completionHandlerFirstViewController: ((T)->())? { get set }
 }

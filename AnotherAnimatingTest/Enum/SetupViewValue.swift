@@ -25,12 +25,12 @@ enum ViewZoom {
             return ViewZoomLayouts(itemSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                                                     heightDimension: .fractionalHeight(1)),
                                    groupSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                                     heightDimension: .fractionalHeight(0.2)))
+                                                                     heightDimension: .fractionalHeight(0.18)))
         case .second:
             return ViewZoomLayouts(itemSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
                                                                     heightDimension: .fractionalHeight(1))
                                    , groupSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                                       heightDimension: .fractionalHeight(0.6)))
+                                                                       heightDimension: .fractionalHeight(0.54)))
         }
     }
     

@@ -8,8 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		5B1CE3AD2A45CDB4004F1476 /* NewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1CE3AC2A45CDB4004F1476 /* NewAnimator.swift */; };
+		5B259AFA2A6153B100E2E544 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B259AF92A6153B100E2E544 /* TaskViewModel.swift */; };
+		5B259AFD2A61542B00E2E544 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B259AFC2A61542B00E2E544 /* TaskView.swift */; };
+		5B259AFF2A615F8700E2E544 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B259AFE2A615F8700E2E544 /* TaskViewController.swift */; };
 		5B4888C32A49BDDE00EF4357 /* FirstMonthCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4888C22A49BDDE00EF4357 /* FirstMonthCell.swift */; };
-		5B4888C72A49BE2900EF4357 /* MonthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4888C62A49BE2900EF4357 /* MonthViewModel.swift */; };
+		5B4888C72A49BE2900EF4357 /* MonthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4888C62A49BE2900EF4357 /* MonthModel.swift */; };
 		5B4888CC2A49C4BF00EF4357 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4888CB2A49C4BF00EF4357 /* CalendarViewModel.swift */; };
 		5B4888CE2A49C4DF00EF4357 /* Month.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4888CD2A49C4DF00EF4357 /* Month.swift */; };
 		5B4888D02A4ACFCE00EF4357 /* YearsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B4888CF2A4ACFCE00EF4357 /* YearsHeaderView.swift */; };
@@ -61,8 +64,11 @@
 		393AE1757A70C9ED680DA9F4 /* Pods-AnotherAnimatingTest-AnotherAnimatingTestUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnotherAnimatingTest-AnotherAnimatingTestUITests.debug.xcconfig"; path = "Target Support Files/Pods-AnotherAnimatingTest-AnotherAnimatingTestUITests/Pods-AnotherAnimatingTest-AnotherAnimatingTestUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		59F422723FE178D937F720C8 /* Pods-AnotherAnimatingTestTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnotherAnimatingTestTests.debug.xcconfig"; path = "Target Support Files/Pods-AnotherAnimatingTestTests/Pods-AnotherAnimatingTestTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5B1CE3AC2A45CDB4004F1476 /* NewAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAnimator.swift; sourceTree = "<group>"; };
+		5B259AF92A6153B100E2E544 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		5B259AFC2A61542B00E2E544 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
+		5B259AFE2A615F8700E2E544 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		5B4888C22A49BDDE00EF4357 /* FirstMonthCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstMonthCell.swift; sourceTree = "<group>"; };
-		5B4888C62A49BE2900EF4357 /* MonthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthViewModel.swift; sourceTree = "<group>"; };
+		5B4888C62A49BE2900EF4357 /* MonthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthModel.swift; sourceTree = "<group>"; };
 		5B4888CB2A49C4BF00EF4357 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		5B4888CD2A49C4DF00EF4357 /* Month.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Month.swift; sourceTree = "<group>"; };
 		5B4888CF2A4ACFCE00EF4357 /* YearsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearsHeaderView.swift; sourceTree = "<group>"; };
@@ -127,6 +133,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B23B2312A6015AB0042DEB7 /* First */ = {
+			isa = PBXGroup;
+			children = (
+				5B70C0FA2A443F6600F1582D /* FirstViewDelegate.swift */,
+				5BBE12E02A39C94900976B79 /* FirstViewController.swift */,
+				5B70C0F82A432A3100F1582D /* FirstView.swift */,
+			);
+			path = First;
+			sourceTree = "<group>";
+		};
+		5B23B2322A6015C20042DEB7 /* Second */ = {
+			isa = PBXGroup;
+			children = (
+				5BBE13102A39CBF700976B79 /* SecondViewController.swift */,
+				5B70C0F62A43258300F1582D /* SecondView.swift */,
+				5B770D882A3F3094009D0400 /* UIViewControllerExtension.swift */,
+			);
+			path = Second;
+			sourceTree = "<group>";
+		};
+		5B259AFB2A6153EF00E2E544 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				5B259AFC2A61542B00E2E544 /* TaskView.swift */,
+				5B259AFE2A615F8700E2E544 /* TaskViewController.swift */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
 		5B4888C12A49BCEC00EF4357 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,7 +175,8 @@
 		5B4888C52A49BE0C00EF4357 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				5B4888C62A49BE2900EF4357 /* MonthViewModel.swift */,
+				5B4888C62A49BE2900EF4357 /* MonthModel.swift */,
+				5B259AF92A6153B100E2E544 /* TaskViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -157,14 +193,11 @@
 		5B6036232A3C719B00E5C4C8 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				5BBE12E02A39C94900976B79 /* FirstViewController.swift */,
-				5B70C0F82A432A3100F1582D /* FirstView.swift */,
+				5B23B2312A6015AB0042DEB7 /* First */,
 				5B4888CB2A49C4BF00EF4357 /* CalendarViewModel.swift */,
-				5B70C0FA2A443F6600F1582D /* FirstViewDelegate.swift */,
 				5B1CE3AC2A45CDB4004F1476 /* NewAnimator.swift */,
-				5BBE13102A39CBF700976B79 /* SecondViewController.swift */,
-				5B70C0F62A43258300F1582D /* SecondView.swift */,
-				5B770D882A3F3094009D0400 /* UIViewControllerExtension.swift */,
+				5B23B2322A6015C20042DEB7 /* Second */,
+				5B259AFB2A6153EF00E2E544 /* Task */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -508,7 +541,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B70C0FB2A443F6600F1582D /* FirstViewDelegate.swift in Sources */,
-				5B4888C72A49BE2900EF4357 /* MonthViewModel.swift in Sources */,
+				5B4888C72A49BE2900EF4357 /* MonthModel.swift in Sources */,
+				5B259AFF2A615F8700E2E544 /* TaskViewController.swift in Sources */,
+				5B259AFA2A6153B100E2E544 /* TaskViewModel.swift in Sources */,
 				5B4888CE2A49C4DF00EF4357 /* Month.swift in Sources */,
 				5B1CE3AD2A45CDB4004F1476 /* NewAnimator.swift in Sources */,
 				5B4888D02A4ACFCE00EF4357 /* YearsHeaderView.swift in Sources */,
@@ -521,6 +556,7 @@
 				5B6036202A3C709D00E5C4C8 /* ModuleFactory.swift in Sources */,
 				5BD3AA282A4B66F200E99703 /* SecondMonthCell.swift in Sources */,
 				5BBE12DF2A39C94900976B79 /* SceneDelegate.swift in Sources */,
+				5B259AFD2A61542B00E2E544 /* TaskView.swift in Sources */,
 				5B60361C2A3C5EDA00E5C4C8 /* Animator.swift in Sources */,
 				5BBE13112A39CBF700976B79 /* SecondViewController.swift in Sources */,
 				5B4888C32A49BDDE00EF4357 /* FirstMonthCell.swift in Sources */,

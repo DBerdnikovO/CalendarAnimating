@@ -8,54 +8,54 @@
 import UIKit
 
 class FirstViewController: UIViewController, FlowController, FirstViewDelegate  {
-
-    var coordinator: Coordinator?
     
-    var completionHandler: ((FirstMonthCell) -> ())?
-
-    
+    // MARK: - Typealias
     typealias T = FirstMonthCell
     
-    private let viewModel: CalendarViewModel = CalendarViewModel.shared()
+    // MARK: - Properties
+    var coordinator: Coordinator?
+    var completionHandlerFirstViewController: ((T) -> ())?
+    private let viewModel: CalendarViewModel = CalendarViewModel.shared
     
-    weak var calendarView: FirstView! {
+    var calendarView: FirstView! {
         guard isViewLoaded else { return nil }
         return (view as? FirstView)
     }
-
+    
+    // MARK: - Life Cycle
     override func loadView() {
         let calendarView = FirstView(frame: UIScreen.main.bounds)
         calendarView.delegate = self
         calendarView.month = viewModel.getMonths()
         self.view = calendarView
-        
+        calendarView.collectionView.scrollToItem(at: IndexPath(item: 11, section: 0), at: .top, animated: false)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    // MARK: - FirstViewDelegate
     func didSelectCell(cell: FirstMonthCell) {
-        completionHandler?(cell)
+        completionHandlerFirstViewController?(cell)
     }
     
-    func getFirstValue()-> Int {
+    func firstValue()-> Int {
         return 0
     }
     
-    func getYearInSection(year: Int, isUp: Bool) {
+    func yearInSection(year: Int, ascendingOrder isUp: Bool) {
         print("AS")
     }
     
-    func getYearSection(complition: ([Int : [MonthViewModel?]]) -> Void) {
+    func yearSection(completion complition: ([Int : [MonthModel?]]) -> Void) {
         print("ASd")
     }
     
-    
-    func getLastValue() -> Int {
+    func lastValue() -> Int {
         return 0
-    }
-        
+    } 
+    
 }
 
 
