@@ -11,6 +11,6 @@ import UIKit
 protocol FirstViewControllerProtocol: UIViewController, FirstViewDelegate {
     
 
-    var calendarView: FirstView! { get }
+//    var calendarView: FirstView! { get }
 
 }

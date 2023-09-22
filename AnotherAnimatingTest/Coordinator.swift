@@ -32,8 +32,9 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
         controller.coordinator = self
         
         controller.completionHandlerFirstViewController = { [weak self] selectedCell in
-            self?.selectedCell = selectedCell
-            self?.showSecondViewController()
+            guard let self = self else { return }
+            self.selectedCell = selectedCell
+            self.showSecondViewController()
         }
         
         navigationController.pushViewController(controller, animated: false)

@@ -39,7 +39,7 @@ class SecondViewController: UIViewController, SecondViewControllerProtocol {
     }
     
     var selectedCell: FirstMonthCell?
-    var viewModel: CalendarViewModel = CalendarViewModel.shared
+    var viewModel: CalendarViewModel = CalendarViewModel.shared()
     
     // MARK: - Lifecycle
     

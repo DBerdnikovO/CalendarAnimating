@@ -62,7 +62,6 @@ class SecondMonthCell: UICollectionViewCell, CellConfigureProtocol, UIGestureRec
         super.prepareForReuse()
         self.monthView.layer.sublayers = nil
         self.mainMonthView.layer.sublayers = nil
-        //        self.monthDatesLayer = nil
         for subview in dayMonthView.subviews {
             subview.removeFromSuperview()
         }

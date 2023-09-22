@@ -11,6 +11,8 @@ class CalendarViewModel {
 
     // MARK: - Properties
     
+    private static var uniqueInstance: CalendarViewModel?
+    
     private var years: [Int] = [] {
         didSet {
             bindYearsViewModelToController()
@@ -26,7 +28,12 @@ class CalendarViewModel {
     var bindMonthInYearsSectionViewModelToController: (() -> ()) = {}
     var bindYearsViewModelToController: (() -> ()) = {}
 
-    static let shared: CalendarViewModel = CalendarViewModel()
+    static func shared() -> CalendarViewModel {
+                if uniqueInstance == nil {
+                    uniqueInstance = CalendarViewModel()
+                }
+                return uniqueInstance!
+            }
 
     private init() {
         getInitialYears()

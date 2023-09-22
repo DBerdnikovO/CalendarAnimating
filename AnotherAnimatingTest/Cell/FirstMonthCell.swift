@@ -1,5 +1,5 @@
 import UIKit
-import SnapKit
+//import SnapKit
 
 protocol CellConfigureProtocol: UICollectionViewCell {
     static var reuseIdentifier: String { get }
@@ -15,9 +15,9 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
     
     // MARK: - Instance Properties
     var indexPath: IndexPath?
-
+    
     private lazy var mainMonthView: UIView = UIView()
-
+    
     private lazy var monthDatesLayer: CALayer = {
         let layer = CALayer()
         layer.backgroundColor = UIColor.black.cgColor
@@ -43,33 +43,32 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
         super.init(frame: frame)
         setupViews()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK: - Life Cycle Methods
     override func prepareForReuse() {
         super.prepareForReuse()
-        monthView.layer.sublayers = nil
-        mainMonthView.layer.sublayers = nil
-        monthDatesLayer.sublayers?.removeAll()
+        monthDatesLayer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        monthDatesLayer.sublayers = nil
+        
     }
     
     deinit {
         print("I DEINIT")
     }
-
+    
     // MARK: - Configuration
     func configure<U>(with value: U, indexPath: IndexPath) where U: Hashable {
         guard let month = value as? MonthModel else { return }
         
         self.indexPath = indexPath
         nameMonthViewLabel.text = month.monthName
-        setupConstraints()
         getMonthArray(monthArray: month.monthArray)
     }
-
+    
     // MARK: - Private Methods
     private func setupViews() {
         addSubview(mainMonthView)
@@ -77,6 +76,7 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
         mainMonthView.addSubview(monthView)
         mainMonthView.frame = self.bounds
         
+        setupConstraints()
     }
     
     private func setupConstraints() {
@@ -115,7 +115,7 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
     private func getMonthArray(monthArray: [[Int]]) {
         let squareSize: CGFloat = bounds.width / 7.35
         let spacing: CGFloat = 1
-
+        
         for i in 0..<6 {
             for j in 0..<7 {
                 let x = CGFloat(j) * (squareSize + spacing)

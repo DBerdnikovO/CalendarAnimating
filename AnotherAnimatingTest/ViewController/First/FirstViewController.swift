@@ -14,22 +14,21 @@ class FirstViewController: UIViewController, FirstViewControllerProtocol  {
     typealias T = FirstMonthCell
     
     // MARK: - Properties
-    var coordinator: Coordinator?
+    weak var coordinator: Coordinator?
     var completionHandlerFirstViewController: ((T) -> ())?
-    private let viewModel: CalendarViewModel = CalendarViewModel.shared
+    private let viewModel: CalendarViewModel = CalendarViewModel.shared()
     
-    var calendarView: FirstView! {
-        guard isViewLoaded else { return nil }
-        return (view as? FirstView)
-    }
+    lazy var calendarView: FirstView = {
+        let view = FirstView(frame: UIScreen.main.bounds)
+        view.delegate = self
+        view.month = viewModel.getMonths()
+        return view
+    }()
     
     // MARK: - Life Cycle
     override func loadView() {
-        let calendarView = FirstView(frame: UIScreen.main.bounds)
-        calendarView.delegate = self
-        calendarView.month = viewModel.getMonths()
         self.view = calendarView
-        calendarView.collectionView.scrollToItem(at: IndexPath(item: 11, section: 0), at: .top, animated: false)
+        calendarView.collectionView.scrollToItem(at: IndexPath(item: 0, section: 1), at: .top, animated: false)
     }
     
     override func viewDidLoad() {

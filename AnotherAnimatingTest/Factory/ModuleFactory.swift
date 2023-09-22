@@ -10,7 +10,6 @@ import Foundation
 class ModuleFactory {
     
     func createFirstViewController() -> FirstViewController? {
-        
        return FirstViewController()
     }
     
@@ -18,7 +17,7 @@ class ModuleFactory {
         SecondViewController()
     }
     
-    func createThirdViewController() -> TaskViewController? {
-        TaskViewController()
-    }
+//    func createThirdViewController() -> TaskViewController? {
+//        TaskViewController()
+//    }
 }

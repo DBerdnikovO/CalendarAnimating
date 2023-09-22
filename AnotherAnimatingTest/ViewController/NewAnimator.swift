@@ -16,14 +16,12 @@ final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     // MARK: - Private Properties
     private var cellSnapshot = UIView()
-//    private var cellType: CellType
     private let type: PresentationType
     private let fromViewController: FirstViewController
     private let toViewController: SecondViewController
     private let cell: FirstMonthCell
     
     // MARK: - Initializer
-    // Один протокол к обоим контроллерам
     init?(type: PresentationType, fromViewController: FirstViewController, toViewController: SecondViewController, cell: FirstMonthCell) {
         self.type = type
         self.fromViewController = fromViewController

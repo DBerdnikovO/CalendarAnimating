@@ -18,9 +18,10 @@ class FirstView: UIView, UICollectionViewDelegate {
     
     // MARK: - Properties
     weak var delegate: FirstViewDelegate?
-    var month: [Int:[MonthModel?]]!  {
+    var month: [Int:[MonthModel?]]?  {
         didSet {
-            years = month.keys.sorted()
+            guard let month = month?.keys.sorted() else { return }
+            years = month
             configureDataSource()
         }
     }
@@ -41,7 +42,6 @@ class FirstView: UIView, UICollectionViewDelegate {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configure()
     }
     
     // MARK: - Configuration
@@ -64,7 +64,8 @@ class FirstView: UIView, UICollectionViewDelegate {
 extension FirstView {
     
     func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<FirstMonthCell, MonthModel> { cell, indexPath, viewModel in
+        let cellRegistration = UICollectionView.CellRegistration<FirstMonthCell, MonthModel> { [weak self] cell, indexPath, viewModel in
+            guard let self = self else { return }
             cell.configure(with: viewModel, indexPath: indexPath)
         }
         
@@ -84,7 +85,7 @@ extension FirstView {
         
         dataSource = UICollectionViewDiffableDataSource<Int, MonthModel?>(collectionView: collectionView) {
             collectionView, indexPath, itemIdentifire in
-            
+
             collectionView.dequeueConfiguredReusableCell(
                 using: cellRegistration,
                 for: indexPath,
@@ -99,8 +100,8 @@ extension FirstView {
         }
         
         for section in years {
+            guard let items = month?[section] else { return }
             snapshot.appendSections([section])
-            guard let items = month[section] else { return }
             snapshot.appendItems(items, toSection: Int(section))
         }
         
