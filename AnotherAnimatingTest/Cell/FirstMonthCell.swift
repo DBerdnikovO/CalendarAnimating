@@ -1,12 +1,14 @@
 import UIKit
 import SnapKit
 
-protocol CellConfigureProtocol {
+protocol CellConfigureProtocol: UICollectionViewCell {
     static var reuseIdentifier: String { get }
     func configure<U: Hashable>(with value: U, indexPath: IndexPath)
+    func relocateLabel(completion: @escaping () -> Void)
 }
 
 class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
+    
     
     // MARK: - Static Properties
     static let reuseIdentifier: String = "FirstMonthCell"
@@ -28,7 +30,7 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
         return view
     }()
     
-     lazy var nameMonthViewLabel: UILabel = {
+    private lazy var nameMonthViewLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20)
         label.textColor = .red
@@ -91,7 +93,8 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
     
     func relocateLabel(completion: @escaping () -> Void) {
         layoutIfNeeded()
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            guard let self = self else { return }
             self.nameMonthViewLabel.snp.remakeConstraints { make in
                 make.top.trailing.equalToSuperview()
                 make.height.equalTo(20)
@@ -100,6 +103,13 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
         }, completion: { _ in
             completion()
         })
+    }
+    
+    func backLanbel() {
+        self.nameMonthViewLabel.snp.remakeConstraints { make in
+            make.top.leading.equalToSuperview()
+            make.height.equalTo(20)
+        }
     }
     
     private func getMonthArray(monthArray: [[Int]]) {

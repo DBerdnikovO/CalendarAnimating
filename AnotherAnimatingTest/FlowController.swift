@@ -6,9 +6,9 @@
 //
 
 import Foundation
-
-protocol FlowController: AnyObject {
-    
-    associatedtype T
-    var completionHandlerFirstViewController: ((T)->())? { get set }
-}
+//
+//protocol FlowController: AnyObject {
+//    
+//    associatedtype T
+//    var completionHandlerFirstViewController: ((T)->())? { get set }
+//}

@@ -7,85 +7,40 @@
 
 import UIKit
 
-class SecondView: UIView, SecondDelegate{
+class SecondView: UIView, SecondDelegate {
     
-    lazy var isOpen = false
-    let customView = UIView()
-
-    func getTappedData(data: TaskModel) {
+    // MARK: - Properties
     
-//        let layout = UICollectionViewFlowLayout()
-//        layout.itemSize = CGSize(width: 50, height: 50)
-//        layout.minimumInteritemSpacing = 10
-//        layout.minimumLineSpacing = 10
-//
-//        customView.addSubview(UICollectionView(frame: customView.frame))
-//        if isOpen {
-//            isOpen = false
-//
-//            delegate?.goThirdController(task: data, isOpen: isOpen)
-//
-//        } else {
-//            isOpen = true
-//
-//            delegate?.goThirdController(task: data, isOpen: isOpen)
-//        }
-//        if isOpen {
-//            
-//            
-//            UIView.animate(withDuration: 0.5) {
-//                self.customView.frame.origin.y = self.frame.height
-//                    } completion: { _ in
-//                        self.customView.removeFromSuperview()
-//                        self.isOpen = false
-//                    }
-//      
-//        } else {
-//            let startFrame =  CGRect(x: 0, y: frame.height, width: frame.width, height: frame.height/2)
-//            customView.frame = startFrame
-//            customView.backgroundColor = UIColor.red // Set your desired background color
-//            addSubview(customView)
-//            customView.layer.cornerRadius = 10
-//            customView.clipsToBounds = true
-//
-//            UIView.animate(withDuration: 0.5) {
-//                self.customView.frame.origin.y = self.frame.height/2
-//            }
-//            isOpen = true
-//        }
-
-    }
-    
-    
-    static let sectionHeaderElementKind = "second-header-element-kind"
+    private static let sectionHeaderElementKind = "second-header-element-kind"
     
     weak var delegate: SecondViewDelegate?
-        
-    var getMiddleSection: ((IndexPath)->())?
+    var getMiddleSection: ((IndexPath) -> ())?
     
-    var month: [Int:[MonthModel?]]!  {
+    var month: [Int: [MonthModel?]]! {
         didSet {
             years = month.keys.sorted()
             configureDataSource()
         }
     }
     
-    lazy var years: [Int] = [Int]()
+    private lazy var years: [Int] = []
+    private lazy var isOpen = false
     
     var initialFrame: CGRect?
-    
-    var initialCollectionViewFrame = CGRect()
-    
+    private var initialCollectionViewFrame = CGRect()
     var selectedCell: IndexPath? {
         didSet {
-            collectionView.scrollToItem(at: selectedCell!, at: .top, animated: false)
+            guard let cell = selectedCell else { return }
+            collectionView.scrollToItem(at: cell, at: .top, animated: false)
         }
     }
-    var selectedCellImageViewSnapshot: UIView?
+    private var selectedCellImageViewSnapshot: UIView?
     
     private var snapshot = NSDiffableDataSourceSnapshot<Int, MonthModel?>()
-    var dataSource: UICollectionViewDiffableDataSource<Int, MonthModel?>! = nil
-    var collectionView: UICollectionView! = nil
+    var dataSource: UICollectionViewDiffableDataSource<Int, MonthModel?>!
+    var collectionView: UICollectionView!
+    
+    // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -97,61 +52,58 @@ class SecondView: UIView, SecondDelegate{
         configure()
     }
     
+    // MARK: - Configuration
+    
     private func configure() {
         backgroundColor = .blue
         configureHierarchy()
     }
+    
+    private func configureHierarchy() {
+        collectionView = UICollectionView(frame: bounds, collectionViewLayout: createLayout(type: .second))
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .black
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(collectionView)
+    }
 }
 
+// MARK: - Extensions
 
 extension SecondView {
     
-    func configureHierarchy() {
-        collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: createLayout(type: ViewZoom.second))
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        collectionView.backgroundColor = .black
-//        collectionView.delegate = self
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.addSubview(collectionView)
+    func getTappedData(data: TaskModel) {
+        // Add your implementation here
     }
     
-    func configureDataSource() {
+    private func configureDataSource() {
+        // Cell configuration
         let cellRegistration = UICollectionView.CellRegistration<SecondMonthCell, MonthModel> { cell, indexPath, viewModel in
             cell.delegate = self
             cell.configure(with: viewModel, indexPath: indexPath)
         }
         
+        // Header configuration
         let headerRegistration = UICollectionView.SupplementaryRegistration<YearsHeaderView>(
             elementKind: SecondView.sectionHeaderElementKind
         ) { [weak self] supplementaryView, _, indexPath in
-            guard let self = self else { return }
-            
-            let newSection = years
-            
-            supplementaryView.yearsLabel.text = String(newSection[indexPath.section])
-            
-            supplementaryView.backgroundColor = .lightGray
-            supplementaryView.layer.borderColor = UIColor.black.cgColor
-            supplementaryView.layer.borderWidth = 1.0
+            guard let self = self, let year = self.years[safe: indexPath.section] else { return }
+            supplementaryView.yearsLabel.text = String(year)
+            supplementaryView.configureAppearance()
         }
         
+        // Data source configuration
         dataSource = UICollectionViewDiffableDataSource<Int, MonthModel?>(collectionView: collectionView) {
-            collectionView, indexPath, itemIdentifire in
+            collectionView, indexPath, itemIdentifier in
             
-            collectionView.dequeueConfiguredReusableCell(
-                using: cellRegistration,
-                for: indexPath,
-                item: itemIdentifire
-            )
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: itemIdentifier)
         }
         dataSource.supplementaryViewProvider = { collectionView, kind, indexPath in
-            return collectionView.dequeueConfiguredReusableSupplementary(
-                using: headerRegistration,
-                for: indexPath
-            )
+            return collectionView.dequeueConfiguredReusableSupplementary(using: headerRegistration, for: indexPath)
         }
         
+        // Snapshot configuration
         for section in years {
             snapshot.appendSections([section])
             guard let items = month[section] else { return }
@@ -161,49 +113,55 @@ extension SecondView {
         dataSource.apply(snapshot, animatingDifferences: false)
     }
     
-    private func update() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            self.dataSource.apply(self.snapshot, animatingDifferences: false)
-        }
-    }
-    
     private func createLayout(type: ViewZoom) -> UICollectionViewLayout {
+        // Define layout constants
+        let itemInsets = NSDirectionalEdgeInsets(top: 3, leading: 3, bottom: 3, trailing: 3)
+        let headerFooterHeightEstimation: CGFloat = 1302
         
-        
+        // Item and Group
         let itemSize = type.layouts.itemSize!
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 3, leading: 3, bottom: 3, trailing: 3)
+        item.contentInsets = itemInsets
         
         let groupSize = type.layouts.groupSize!
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                       subitems: [item])
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
+        // Section and Supplementary Items
         let section = NSCollectionLayoutSection(group: group)
         
         let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                      heightDimension: .estimated(1302))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: headerFooterSize,
-            elementKind: SecondView.sectionHeaderElementKind, alignment: .top)
-        
+                                                      heightDimension: .estimated(headerFooterHeightEstimation))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerFooterSize,
+                                                                        elementKind: SecondView.sectionHeaderElementKind, alignment: .top)
         section.boundarySupplementaryItems = [sectionHeader]
         
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        return layout
+        return UICollectionViewCompositionalLayout(section: section)
     }
     
-    func getMiddleCellOnDisplay() -> IndexPath? {
+    func getMiddleCellOnDisplay() -> SecondMonthCell? {
         let visibleRect = CGRect(origin: collectionView.contentOffset, size: collectionView.bounds.size)
         let visiblePoint = CGPoint(x: visibleRect.midX, y: visibleRect.midY)
-        
-        if let indexPath = collectionView.indexPathForItem(at: visiblePoint) {
-            return (indexPath)
-        }
-        
-        return nil
+        let middleCell = collectionView.indexPathForItem(at: visiblePoint) ?? IndexPath(row: 0, section: 0)
+        guard let cell = collectionView.cellForItem(at: middleCell) as? SecondMonthCell else { return nil}
+        return cell
     }
-    
+}
+
+// MARK: - Supplementary View Configuration
+
+private extension UIView {
+    func configureAppearance() {
+        backgroundColor = .lightGray
+        layer.borderColor = UIColor.black.cgColor
+        layer.borderWidth = 1.0
+    }
+}
+
+private extension Array {
+    subscript(safe index: Int) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
     
 //    
 //    private func appendNewSections(atTop: Bool = false) {
@@ -263,5 +221,45 @@ extension SecondView {
 //            appendNewSections(atTop: true)
 //        }
 //    }
-}
+    
+    //        let layout = UICollectionViewFlowLayout()
+    //        layout.itemSize = CGSize(width: 50, height: 50)
+    //        layout.minimumInteritemSpacing = 10
+    //        layout.minimumLineSpacing = 10
+    //
+    //        customView.addSubview(UICollectionView(frame: customView.frame))
+    //        if isOpen {
+    //            isOpen = false
+    //
+    //            delegate?.goThirdController(task: data, isOpen: isOpen)
+    //
+    //        } else {
+    //            isOpen = true
+    //
+    //            delegate?.goThirdController(task: data, isOpen: isOpen)
+    //        }
+    //        if isOpen {
+    //
+    //
+    //            UIView.animate(withDuration: 0.5) {
+    //                self.customView.frame.origin.y = self.frame.height
+    //                    } completion: { _ in
+    //                        self.customView.removeFromSuperview()
+    //                        self.isOpen = false
+    //                    }
+    //
+    //        } else {
+    //            let startFrame =  CGRect(x: 0, y: frame.height, width: frame.width, height: frame.height/2)
+    //            customView.frame = startFrame
+    //            customView.backgroundColor = UIColor.red // Set your desired background color
+    //            addSubview(customView)
+    //            customView.layer.cornerRadius = 10
+    //            customView.clipsToBounds = true
+    //
+    //            UIView.animate(withDuration: 0.5) {
+    //                self.customView.frame.origin.y = self.frame.height/2
+    //            }
+    //            isOpen = true
+    //        }
+
 

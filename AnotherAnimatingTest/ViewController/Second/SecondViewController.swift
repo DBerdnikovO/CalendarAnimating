@@ -17,15 +17,19 @@ protocol SecondViewDelegate: AnyObject {
     func getFirstValue()
     func getYearInSection()
     func getYearSection()
-//    func goThirdController(task: TaskModel, isOpen: Bool)
 }
 
-class SecondViewController: UIViewController, SecondViewDelegate {
+class SecondViewController: UIViewController, SecondViewControllerProtocol {
     
     // MARK: - Properties
     
     var coordinator: Coordinator?
     var completion: ((IndexPath) -> ())?
+    
+    var calendarView: SecondView! {
+        guard isViewLoaded else { return nil }
+        return (view as? SecondView)
+    }
     weak var second: SecondView?  {
         didSet {
             self.view = second
@@ -50,12 +54,13 @@ class SecondViewController: UIViewController, SecondViewDelegate {
         view.backgroundColor = .blue
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        guard let secondView = second else { return }
-        coordinator?.passDataBack(data: secondView.getMiddleCellOnDisplay()!)
-    }
-    
     // MARK: - SecondViewDelegate Methods
+    
+    func getMiddleCell() -> SecondMonthCell? {
+        guard let secondView = second,
+              let middleCell = secondView.getMiddleCellOnDisplay() else { return nil }
+        return middleCell
+    }
     
     func getFirstValue() {
         print("FIRST")

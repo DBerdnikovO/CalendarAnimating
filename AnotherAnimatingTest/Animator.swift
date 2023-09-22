@@ -15,7 +15,6 @@ final class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     static let duration: TimeInterval = 1.25
     private let contentInsets = NSDirectionalEdgeInsets(top: 1, leading: 1, bottom: 1, trailing: 1)
 
-    
     private let type: PresentationType
     private var fromViewController: FirstViewController
     private var toViewController: SecondViewController
@@ -39,7 +38,6 @@ final class Animator: NSObject, UIViewControllerAnimatedTransitioning {
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         
         if type.isPresenting {
-            
             
             let containerView = transitionContext.containerView
             

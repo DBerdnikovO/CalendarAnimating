@@ -7,7 +7,11 @@
 
 import UIKit
 
-class FirstView: UIView, UICollectionViewDelegate{
+protocol CalendarViewProtocol {
+    func updateCalendar()
+}
+
+class FirstView: UIView, UICollectionViewDelegate {
     
     // MARK: - Constants
     static let sectionHeaderElementKind = "first-header-element-kind"
@@ -21,7 +25,7 @@ class FirstView: UIView, UICollectionViewDelegate{
         }
     }
     lazy var years: [Int] = [Int]()
-    var initialFrame: CGRect?
+    private var initialFrame: CGRect?
     var initialCollectionViewFrame = CGRect()
     var selectedCell: FirstMonthCell?
     var selectedCellImageViewSnapshot: UIView?
@@ -151,11 +155,8 @@ extension FirstView {
         guard let selectedCell = selectedCell else { return }
         self.collectionView.frame = initialCollectionViewFrame
         
-        selectedCell.relocateLabel { [weak self] in
-            guard let self = self else { return }
-            self.delegate?.didSelectCell(cell: selectedCell)
-            
-        }
+       
+        delegate?.didSelectCell(cell: selectedCell)
     }
     
 }

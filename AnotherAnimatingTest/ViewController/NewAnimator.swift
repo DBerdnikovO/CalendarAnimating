@@ -16,18 +16,20 @@ final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     // MARK: - Private Properties
     private var cellSnapshot = UIView()
+//    private var cellType: CellType
     private let type: PresentationType
     private let fromViewController: FirstViewController
     private let toViewController: SecondViewController
     private let cell: FirstMonthCell
     
     // MARK: - Initializer
+    // Один протокол к обоим контроллерам
     init?(type: PresentationType, fromViewController: FirstViewController, toViewController: SecondViewController, cell: FirstMonthCell) {
         self.type = type
         self.fromViewController = fromViewController
         self.toViewController = toViewController
         self.cell = cell
-        
+
         self.fromViewController.calendarView.collectionView.transform = CGAffineTransform.identity
         self.fromViewController.calendarView.collectionView.collectionViewLayout.invalidateLayout()
     }
@@ -45,11 +47,12 @@ final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let transform = CGAffineTransform(scaleX: 3, y: 3)
         let height = type.isPresenting ? fromViewController.topbarHeight : toViewController.topbarHeight
         let visibleRect = CGRect(origin: fromViewController.calendarView.collectionView.contentOffset, size: fromViewController.calendarView.collectionView.bounds.size)
-        let backgroundVIwe = UIView(frame: containerView.frame)
+        let backgroundView = UIView(frame: containerView.frame)
         let cellFrameInContainerView = fromViewController.calendarView.collectionView.convert(cell.frame, to: containerView)
         
-        backgroundVIwe.backgroundColor = .black
-        backgroundVIwe.alpha = 0
+
+        backgroundView.backgroundColor = .black
+        backgroundView.alpha = 0
         
         guard let targetView = toView,
               let cellImageSnapshot = cell.snapshotView(afterScreenUpdates: true)
@@ -57,13 +60,12 @@ final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             transitionContext.completeTransition(false)
             return
         }
-        
+
         cellSnapshot = cellImageSnapshot
         
         cellSnapshot.frame = cellFrameInContainerView.offsetBy(dx: 0, dy: self.contentInsets.bottom)
         
-        
-        [backgroundVIwe, cellSnapshot, targetView].forEach{ containerView.addSubview($0)}
+        [backgroundView, cellSnapshot, targetView].forEach{ containerView.addSubview($0)}
         targetView.alpha = type.isPresenting ? 0.0 : 1.0
         
         if !type.isPresenting {
@@ -74,7 +76,7 @@ final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             guard let self = self else { return }
             if targetViewController is SecondViewController {
                 adjustCollectionViewPosition(transform: transform, visibleRect: visibleRect, height: height)
-                backgroundVIwe.alpha = 0.97
+                backgroundView.alpha = 0.97
                 
             } else {
                 self.fromViewController.calendarView.collectionView.transform = CGAffineTransform(scaleX: 1, y: 1)
@@ -87,7 +89,6 @@ final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             if self.type.isPresenting {
                 UIView.animate(withDuration: 1) {
                     self.toViewController.view.alpha = 1.0
-                    
                 }
                 containerView.alpha = 1
             }

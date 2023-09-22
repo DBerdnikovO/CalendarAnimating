@@ -98,9 +98,7 @@ class SecondMonthCell: UICollectionViewCell, CellConfigureProtocol, UIGestureRec
         monthView.translatesAutoresizingMaskIntoConstraints = false
         
         nameMonthViewLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-//            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.top.trailing.equalToSuperview()
             make.height.equalTo(60)
         }
         
@@ -113,22 +111,26 @@ class SecondMonthCell: UICollectionViewCell, CellConfigureProtocol, UIGestureRec
         
     }
     
-    func relocateLabel() {
-        
-        nameMonthViewLabel.snp.removeConstraints()
-        
-        UIView.animate(withDuration: 0.3) {
-            self.nameMonthViewLabel.snp.updateConstraints { make in
-                make.top.equalToSuperview()
-                make.trailing.equalToSuperview()
+    func relocateLabel(completion: @escaping () -> Void) {
+        layoutIfNeeded()
+        UIView.animate(withDuration: 0.3, animations: { [weak self] in
+            guard let self = self else { return }
+            self.nameMonthViewLabel.snp.remakeConstraints { make in
+                make.top.leading.equalToSuperview()
                 make.height.equalTo(20)
             }
             self.layoutIfNeeded()
-            
-        }
+        }, completion: { _ in
+            completion()
+        })
     }
     
-    
+    func backLanbel() {
+        self.nameMonthViewLabel.snp.remakeConstraints { make in
+            make.top.trailing.equalToSuperview()
+            make.height.equalTo(20)
+        }
+    }
     
     func getMonthArray(monthArray: [[Int]]) {
             let squareSize: CGFloat = (bounds.width / 7.35)

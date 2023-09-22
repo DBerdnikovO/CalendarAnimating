@@ -7,7 +7,8 @@
 
 import UIKit
 
-class FirstViewController: UIViewController, FlowController, FirstViewDelegate  {
+
+class FirstViewController: UIViewController, FirstViewControllerProtocol  {
     
     // MARK: - Typealias
     typealias T = FirstMonthCell
@@ -37,8 +38,14 @@ class FirstViewController: UIViewController, FlowController, FirstViewDelegate  
     
     // MARK: - FirstViewDelegate
     func didSelectCell(cell: FirstMonthCell) {
-        completionHandlerFirstViewController?(cell)
+//        cell.relocateLabel { [weak self] in
+//            guard let self = self else { return }
+            completionHandlerFirstViewController?(cell)
+//        }
+        
     }
+    
+    
     
     func firstValue()-> Int {
         return 0
