@@ -54,7 +54,6 @@ class FirstView: UIView, UICollectionViewDelegate {
         collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: createLayout(type: ViewZoom.first))
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .black
-        collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(collectionView)
     }
@@ -75,6 +74,7 @@ extension FirstView {
             guard let self = self else { return }
             
             let newSection = years
+            print(years.count)
             
             supplementaryView.yearsLabel.text = String(newSection[indexPath.section])
             
@@ -85,7 +85,7 @@ extension FirstView {
         
         dataSource = UICollectionViewDiffableDataSource<Int, MonthModel?>(collectionView: collectionView) {
             collectionView, indexPath, itemIdentifire in
-
+            
             collectionView.dequeueConfiguredReusableCell(
                 using: cellRegistration,
                 for: indexPath,
@@ -146,99 +146,54 @@ extension FirstView {
     }
 }
 
-// MARK: - UICollectionViewDelegate
+
+// MARK: Snapshot
 extension FirstView {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+    func applySnapshot(newSection: Int,newItems: [MonthModel?], isUp: Bool) {
         
-        initialCollectionViewFrame = collectionView.frame
+        if !snapshot.sectionIdentifiers.contains(newSection) {
+            if isUp {
+                DispatchQueue.main.async(execute: { [weak self] in
+                    guard let self = self else { return }
+                    CATransaction.begin()
+                    CATransaction.setDisableActions(true)
+                    
+                    let contentHeight = self.collectionView.contentSize.height
+                    let offsetY = self.collectionView.contentOffset.y
+                    
+                    let bottomOffset = contentHeight - offsetY
+                    
+                    self.snapshot.insertSections([newSection], beforeSection: newSection + 1)
+                    self.snapshot.appendItems(newItems,toSection: newSection)
+                    
+                    self.years.append(newSection)
+                    self.years.sort()
+                    
+                    self.collectionView.performBatchUpdates ({
+                        self.dataSource.apply(self.snapshot, animatingDifferences: false)
+                    }, completion: { finished in
+                        self.collectionView.layoutIfNeeded()
+                        self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottomOffset)
+                        CATransaction.commit()
+                    })
+                    
+                })
+                
+            } else {
+                snapshot.appendSections([newSection])
+                snapshot.appendItems(newItems,toSection: newSection)
+                years.append(newSection)
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.dataSource.apply(self.snapshot, animatingDifferences: false)
+                }
+            }
+            
+        }
         
-        selectedCell = collectionView.cellForItem(at: indexPath) as? FirstMonthCell
-        guard let selectedCell = selectedCell else { return }
-        self.collectionView.frame = initialCollectionViewFrame
-        
-       
-        delegate?.didSelectCell(cell: selectedCell)
     }
+    
     
 }
 
-extension FirstView {
-    //    private func appendNewSections(atTop: Bool = false) {
-    //
-    //        if atTop {
-    ////            DispatchQueue.main.async(execute: {
-    ////
-    ////                CATransaction.begin()
-    ////                CATransaction.setDisableActions(true)
-    ////
-    ////                let contentHeight = self.collectionView.contentSize.height
-    ////                let offsetY = self.collectionView.contentOffset.y
-    ////                let firstSection = self.delegate?.getFirstValue()
-    ////
-    ////                let bottomOffset = contentHeight - offsetY
-    ////                let newFirstSection = firstSection! - 1
-    ////
-    ////                self.delegate?.getYearInSection(year: newFirstSection, isUp: true)
-    //////                self.calendarViewModelController.getYearInSection(year: newFirstSection, isUp: true)
-    ////                self.delegate?.getYearSection(complition: { [weak self] sections in
-    ////                    guard let newItems = sections[newFirstSection] else { return }
-    ////                    guard let strogSelf = self else { return }
-    ////                    strogSelf.snapshot.insertSections([newFirstSection], beforeSection: firstSection!)
-    ////                    strogSelf.snapshot.appendItems(newItems,toSection: newFirstSection)
-    ////                })
-    //////                self.calendarViewModelController.getYearSection {[weak self] sections in
-    //////                    guard let newItems = sections[newFirstSection] else { return }
-    //////                    guard let strogSelf = self else { return }
-    //////                    strogSelf.snapshot.insertSections([newFirstSection], beforeSection: firstSection)
-    //////                    strogSelf.snapshot.appendItems(newItems,toSection: newFirstSection)
-    //////                }
-    ////
-    ////                self.collectionView.performBatchUpdates ({
-    ////                    self.applySnapshot()
-    ////                }, completion: { finished in
-    ////                    self.collectionView.layoutIfNeeded()
-    ////                    self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottomOffset)
-    ////                    CATransaction.commit()
-    ////                })
-    ////            })
-    //        }
-    //        else {
-    //            let lastSection = delegate?.getLastValue()
-    //            let newLastSection = lastSection! + 1
-    //            delegate?.getYearInSection(year: newLastSection, isUp: false)
-    //            delegate?.getYearSection(complition: { [weak self] sections in
-    //                guard let strongSelf = self else { return }
-    //                guard let newItems = sections[newLastSection] else { return }
-    //                strongSelf.snapshot.appendSections([newLastSection])
-    //                strongSelf.snapshot.appendItems(newItems)
-    //                strongSelf.applySnapshot()
-    //            })
-    ////            calendarViewModelController.getYearInSection(year: newLastSection, isUp: false)
-    ////            calendarViewModelController.getYearSection {[weak self] sections in
-    ////                guard let strongSelf = self else { return }
-    ////                guard let newItems = sections[newLastSection] else { return }
-    ////                strongSelf.snapshot.appendSections([newLastSection])
-    ////                strongSelf.snapshot.appendItems(newItems)
-    ////                strongSelf.applySnapshot()
-    ////            }
-    //        }
-    //    }
-    //
-    //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    //        let offsetY = scrollView.contentOffset.y
-    //        let contentHeight = scrollView.contentSize.height
-    //        let height = scrollView.frame.size.height
-    //        if offsetY > contentHeight - height {
-    //            appendNewSections()
-    //        } else if offsetY < 0{
-    //            appendNewSections(atTop: true)
-    //        }
-    //    }
-    //
-    //    private func applySnapshot() {
-    //        DispatchQueue.main.async { [weak self] in
-    //            guard let self = self else { return }
-    //            self.dataSource.apply(self.snapshot, animatingDifferences: false)
-    //        }
-    //    }
-}

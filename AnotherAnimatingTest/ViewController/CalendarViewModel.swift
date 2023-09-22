@@ -10,8 +10,8 @@ import Foundation
 class CalendarViewModel {
 
     // MARK: - Properties
-    
     private static var uniqueInstance: CalendarViewModel?
+
     
     private var years: [Int] = [] {
         didSet {
@@ -49,8 +49,9 @@ class CalendarViewModel {
         return monthInYear
     }
 
-    func getYearSection(completion: ([Int: [MonthModel?]]) -> Void) {
-        completion(monthInYear)
+    func getMonthInSection(year: Int) -> [MonthModel?] {
+        guard let months = monthInYear[year] else { return [nil]}
+        return months
     }
 
     func getFirstYearValue() -> Int {

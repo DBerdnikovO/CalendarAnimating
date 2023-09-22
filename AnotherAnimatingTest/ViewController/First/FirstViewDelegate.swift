@@ -22,7 +22,7 @@ protocol FirstViewDelegate: AnyObject {
     
     /// Retrieves the year section.
     /// - Parameter completion: The completion block with a dictionary of months for each year.
-    func yearSection(completion: ([Int: [MonthModel?]]) -> Void)
+//    func yearSection(completion: ([Int: [MonthModel?]]) -> Void)
     
     /// Retrieves the last value.
     func lastValue() -> Int
