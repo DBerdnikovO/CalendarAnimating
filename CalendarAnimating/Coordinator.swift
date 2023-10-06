@@ -96,9 +96,9 @@ extension Coordinator {
         guard let unwrappedCell = cell else { return nil }
         
         if let from = fromVC as? FirstViewController, let to = toVC as? SecondViewController {
-            return NewAnimator(type: type, fromViewController: from, toViewController: to, cell: unwrappedCell)
+            return TransitionAnimator(type: type, fromViewController: from, toViewController: to, cell: unwrappedCell)
         } else if let from = fromVC as? SecondViewController, let to = toVC as? FirstViewController {
-            return NewAnimator(type: type, fromViewController: to, toViewController: from, cell: unwrappedCell)
+            return TransitionAnimator(type: type, fromViewController: to, toViewController: from, cell: unwrappedCell)
         }
 
         return nil

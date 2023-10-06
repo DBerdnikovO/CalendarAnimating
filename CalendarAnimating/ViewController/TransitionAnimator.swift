@@ -6,7 +6,7 @@
 
 import UIKit
 
-final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+final class TransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     // MARK: - Constants
     private static let duration: TimeInterval = 1.25
@@ -34,7 +34,7 @@ final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     // MARK: - Transitioning Protocol Methods
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return NewAnimator.duration
+        return TransitionAnimator.duration
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {

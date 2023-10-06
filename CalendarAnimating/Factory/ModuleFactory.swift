@@ -16,8 +16,5 @@ class ModuleFactory {
     func createSecondViewController() -> SecondViewController {
         SecondViewController()
     }
-    
-//    func createThirdViewController() -> TaskViewController? {
-//        TaskViewController()
-//    }
+
 }
