@@ -7,13 +7,13 @@
 
 import UIKit
 
-class SecondView: UIView, SecondDelegate {
+class SecondView: UIView {
     
     // MARK: - Properties
     
     private static let sectionHeaderElementKind = "second-header-element-kind"
     
-    weak var delegate: SecondViewDelegate?
+//    weak var delegate: SecondViewDelegate?
     var getMiddleSection: ((IndexPath) -> ())?
     
     var month: [Int: [MonthModel?]]! {
@@ -52,10 +52,11 @@ class SecondView: UIView, SecondDelegate {
         configure()
     }
     
+    
     // MARK: - Configuration
     
     private func configure() {
-        backgroundColor = .blue
+        backgroundColor = .black
         configureHierarchy()
     }
     
@@ -69,8 +70,7 @@ class SecondView: UIView, SecondDelegate {
     }
 }
 
-// MARK: - Extensions
-
+//MARK: Configure DataSource
 extension SecondView {
     
     func getTappedData(data: TaskModel) {
@@ -80,7 +80,6 @@ extension SecondView {
     private func configureDataSource() {
         // Cell configuration
         let cellRegistration = UICollectionView.CellRegistration<SecondMonthCell, MonthModel> { cell, indexPath, viewModel in
-            cell.delegate = self
             cell.configure(with: viewModel, indexPath: indexPath)
         }
         
@@ -147,6 +146,56 @@ extension SecondView {
     }
 }
 
+// MARK: Snapshot
+extension SecondView {
+    
+    func applySnapshot(newSection: Int,newItems: [MonthModel?], isUp: Bool) {
+        
+        if !snapshot.sectionIdentifiers.contains(newSection) {
+            if isUp {
+                DispatchQueue.main.async(execute: { [weak self] in
+                    guard let self = self else { return }
+                    CATransaction.begin()
+                    CATransaction.setDisableActions(true)
+                    
+                    let contentHeight = self.collectionView.contentSize.height
+                    let offsetY = self.collectionView.contentOffset.y
+                    
+                    let bottomOffset = contentHeight - offsetY
+                    
+                    self.snapshot.insertSections([newSection], beforeSection: newSection + 1)
+                    self.snapshot.appendItems(newItems,toSection: newSection)
+                    
+                    self.years.append(newSection)
+                    self.years.sort()
+                    
+                    self.collectionView.performBatchUpdates ({
+                        self.dataSource.apply(self.snapshot, animatingDifferences: false)
+                    }, completion: { finished in
+                        self.collectionView.layoutIfNeeded()
+                        self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottomOffset)
+                        CATransaction.commit()
+                    })
+                    
+                })
+                
+            } else {
+                snapshot.appendSections([newSection])
+                snapshot.appendItems(newItems,toSection: newSection)
+                years.append(newSection)
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.dataSource.apply(self.snapshot, animatingDifferences: false)
+                }
+            }
+            
+        }
+        
+    }
+    
+    
+}
+
 // MARK: - Supplementary View Configuration
 
 private extension UIView {
@@ -162,104 +211,4 @@ private extension Array {
         return indices.contains(index) ? self[index] : nil
     }
 }
-    
-//    
-//    private func appendNewSections(atTop: Bool = false) {
-//
-//        if atTop {
-//            DispatchQueue.main.async(execute: {
-//
-//                CATransaction.begin()
-//                CATransaction.setDisableActions(true)
-//
-//                let contentHeight = self.collectionView.contentSize.height
-//                let offsetY = self.collectionView.contentOffset.y
-//                let firstSection = self.calendarViewModelController.getFirstValue()
-//
-//                let bottomOffset = contentHeight - offsetY
-//                let newFirstSection = firstSection - 1
-//
-//
-//                self.calendarViewModelController.getYearInSection(year: newFirstSection, isUp: true)
-//                self.calendarViewModelController.getYearSection {[weak self] sections in
-//                    guard let newItems = sections[newFirstSection] else { return }
-//                    guard let strogSelf = self else { return }
-//                    strogSelf.snapshot.insertSections([newFirstSection], beforeSection: firstSection)
-//                    strogSelf.snapshot.appendItems(newItems,toSection: newFirstSection)
-//                }
-//
-//                self.collectionView.performBatchUpdates ({
-//                    self.applySnapshot()
-//                }, completion: { finished in
-//                    self.collectionView.layoutIfNeeded()
-//                    self.collectionView.contentOffset = CGPoint(x: 0, y: self.collectionView.contentSize.height - bottomOffset)
-//                    CATransaction.commit()
-//                })
-//            })
-//        }
-//        else {
-//            let lastSection = calendarViewModelController.getLastValue()
-//            let newLastSection = lastSection + 1
-//            calendarViewModelController.getYearInSection(year: newLastSection, isUp: false)
-//            calendarViewModelController.getYearSection {[weak self] sections in
-//                guard let strongSelf = self else { return }
-//                guard let newItems = sections[newLastSection] else { return }
-//                strongSelf.snapshot.appendSections([newLastSection])
-//                strongSelf.snapshot.appendItems(newItems)
-//                strongSelf.applySnapshot()
-//            }
-//        }
-//    }
-//    
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offsetY = scrollView.contentOffset.y
-//        let contentHeight = scrollView.contentSize.height
-//        let height = scrollView.frame.size.height
-//        if offsetY > contentHeight - height {
-//            appendNewSections()
-//        } else if offsetY < 0{
-//            appendNewSections(atTop: true)
-//        }
-//    }
-    
-    //        let layout = UICollectionViewFlowLayout()
-    //        layout.itemSize = CGSize(width: 50, height: 50)
-    //        layout.minimumInteritemSpacing = 10
-    //        layout.minimumLineSpacing = 10
-    //
-    //        customView.addSubview(UICollectionView(frame: customView.frame))
-    //        if isOpen {
-    //            isOpen = false
-    //
-    //            delegate?.goThirdController(task: data, isOpen: isOpen)
-    //
-    //        } else {
-    //            isOpen = true
-    //
-    //            delegate?.goThirdController(task: data, isOpen: isOpen)
-    //        }
-    //        if isOpen {
-    //
-    //
-    //            UIView.animate(withDuration: 0.5) {
-    //                self.customView.frame.origin.y = self.frame.height
-    //                    } completion: { _ in
-    //                        self.customView.removeFromSuperview()
-    //                        self.isOpen = false
-    //                    }
-    //
-    //        } else {
-    //            let startFrame =  CGRect(x: 0, y: frame.height, width: frame.width, height: frame.height/2)
-    //            customView.frame = startFrame
-    //            customView.backgroundColor = UIColor.red // Set your desired background color
-    //            addSubview(customView)
-    //            customView.layer.cornerRadius = 10
-    //            customView.clipsToBounds = true
-    //
-    //            UIView.animate(withDuration: 0.5) {
-    //                self.customView.frame.origin.y = self.frame.height/2
-    //            }
-    //            isOpen = true
-    //        }
-
-
+ 

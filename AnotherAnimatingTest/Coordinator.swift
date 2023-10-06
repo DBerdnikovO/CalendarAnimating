@@ -11,22 +11,22 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
     
     typealias CompletionHandler = () -> ()
     
+    // MARK: Property
     var navigationController: UINavigationController
     let moduleFactory = ModuleFactory()
-    
-    var selectedCell: CellConfigureProtocol?
-    
+    var selectedCell: FirstMonthCell?
     var flowCompletionHandler: CompletionHandler?
-    
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
+    // MARK: Start
     func start() {
         showFirstViewController()
         navigationController.delegate = self
     }
     
+    // MARK: Create Controller
     private func showFirstViewController() {
         guard let controller = moduleFactory.createFirstViewController() else { return }
         controller.coordinator = self
@@ -43,7 +43,7 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
     private func showSecondViewController() {
         let controller = moduleFactory.createSecondViewController()
         controller.coordinator = self
-        controller.selectedCell = selectedCell as? FirstMonthCell
+        controller.selectedCell = selectedCell
         navigationController.pushViewController(controller, animated: true)
     }
     
@@ -54,13 +54,7 @@ class Coordinator:NSObject, UINavigationControllerDelegate {
     //         controller.modalPresentationStyle = .formSheet
     //         navigationController.present(controller, animated: true)
     //     }
-    
-    //    func passDataBack(data: SecondMonthCell) {
-    //        if navigationController.viewControllers.first is FirstViewController {
-    //            data.backLanbel()
-    //            self.didPressedCell = data
-    //        }
-    //    }
+
 }
 
 
@@ -74,7 +68,7 @@ extension Coordinator {
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         switch fromVC {
         case is FirstViewController:
-            return createAnimator(type: .present, from: fromVC, to: toVC)
+            return createAnimator(type: .present, from: fromVC, to: toVC, cell: nil)
         case is SecondViewController:
             return handleSecondViewControllerTransition(from: fromVC, to: toVC)
         default:
@@ -88,24 +82,25 @@ extension Coordinator {
               let to = toVC as? FirstViewController,
               let middleCell = from.getMiddleCell(),
               let indexPath = middleCell.indexPath,
-              let cell = to.calendarView.collectionView.cellForItem(at: indexPath) as? CellConfigureProtocol else {
-            return nil
-        }
-        selectedCell = cell
-        return createAnimator(type: .dismiss, from: fromVC, to: toVC)
+              let cell = to.calendarView.collectionView.cellForItem(at: indexPath) as? FirstMonthCell else {return nil}
+        return createAnimator(type: .dismiss, from: fromVC, to: toVC, cell: cell)
     }
     
     
     private func createAnimator(type: PresentationType,
                                 from fromVC: UIViewController,
-                                to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard let cell = selectedCell as? FirstMonthCell else { return nil }
+                                to toVC: UIViewController,
+                                cell: FirstMonthCell?) -> UIViewControllerAnimatedTransitioning? {
+        let cell = cell ?? selectedCell
+        
+        guard let unwrappedCell = cell else { return nil }
         
         if let from = fromVC as? FirstViewController, let to = toVC as? SecondViewController {
-            return NewAnimator(type: type, fromViewController: from, toViewController: to, cell: cell)
+            return NewAnimator(type: type, fromViewController: from, toViewController: to, cell: unwrappedCell)
         } else if let from = fromVC as? SecondViewController, let to = toVC as? FirstViewController {
-            return NewAnimator(type: type, fromViewController: to, toViewController: from, cell: cell)
+            return NewAnimator(type: type, fromViewController: to, toViewController: from, cell: unwrappedCell)
         }
+
         return nil
     }
     

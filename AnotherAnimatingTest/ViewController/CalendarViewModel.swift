@@ -11,6 +11,8 @@ class CalendarViewModel {
 
     // MARK: - Properties
     private static var uniqueInstance: CalendarViewModel?
+    let currentMonth = Calendar.current.component(.month, from: Date())
+    let currentYear = Calendar.current.component(.year, from: Date())
 
     
     private var years: [Int] = [] {
@@ -76,11 +78,20 @@ class CalendarViewModel {
         
         monthInYear[year] = months
     }
+    
+    func getCurrentYear() -> Int {
+        guard let currentYear = years.firstIndex(of: currentYear) else { return 0 }
+        return currentYear
+    }
+
+    func getCurrentMonth() -> IndexPath {
+        guard let currentYear = years.firstIndex(of: currentYear) else { return IndexPath() }
+       return IndexPath(row: currentMonth-1, section: currentYear)
+    }
 
     // MARK: - Private Methods
     
     private func getInitialYears() {
-        let currentYear = Calendar.current.component(.year, from: Date())
         for offset in -1...1 {
             fetchYear(year: currentYear + offset, prepend: false)
         }

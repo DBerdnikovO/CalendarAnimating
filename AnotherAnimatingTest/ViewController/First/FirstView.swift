@@ -16,8 +16,8 @@ class FirstView: UIView, UICollectionViewDelegate {
     // MARK: - Constants
     static let sectionHeaderElementKind = "first-header-element-kind"
     
+    
     // MARK: - Properties
-    weak var delegate: FirstViewDelegate?
     var month: [Int:[MonthModel?]]?  {
         didSet {
             guard let month = month?.keys.sorted() else { return }
@@ -26,6 +26,7 @@ class FirstView: UIView, UICollectionViewDelegate {
         }
     }
     lazy var years: [Int] = [Int]()
+    
     private var initialFrame: CGRect?
     var initialCollectionViewFrame = CGRect()
     var selectedCell: FirstMonthCell?
@@ -33,6 +34,8 @@ class FirstView: UIView, UICollectionViewDelegate {
     private var snapshot = NSDiffableDataSourceSnapshot<Int, MonthModel?>()
     var dataSource: UICollectionViewDiffableDataSource<Int, MonthModel?>! = nil
     var collectionView: UICollectionView! = nil
+    
+    var homeButton: HomeButton = HomeButton()
     
     // MARK: - Initializers
     override init(frame: CGRect) {
@@ -46,25 +49,47 @@ class FirstView: UIView, UICollectionViewDelegate {
     
     // MARK: - Configuration
     private func configure() {
-        backgroundColor = .blue
+        backgroundColor = .black
         configureHierarchy()
+        configureButton()
     }
     
     func configureHierarchy() {
-        collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: createLayout(type: ViewZoom.first))
+        collectionView = UICollectionView(frame: bounds, collectionViewLayout: createLayout(type: ViewZoom.first))
         collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         collectionView.backgroundColor = .black
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        self.addSubview(collectionView)
+        collectionView.showsVerticalScrollIndicator = false
+        
+        addSubview(collectionView)
+        addSubview(homeButton)
+        
     }
+    
+    func configureButton() {
+        let guide = safeAreaLayoutGuide
+
+        homeButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        homeButton.tintColor = .white
+        NSLayoutConstraint.activate([
+            homeButton.topAnchor.constraint(equalTo: guide.topAnchor, constant: -10),
+            homeButton.trailingAnchor.constraint(equalTo: guide.trailingAnchor, constant: -5),
+            homeButton.widthAnchor.constraint(equalToConstant: 50),
+            homeButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+
+    @objc private func buttonTapped() {
+        NotificationCenter.default.post(name: .pressedCell, object: true)
+    }
+
 }
 
 // MARK: - Data Source Configuration
 extension FirstView {
     
     func configureDataSource() {
-        let cellRegistration = UICollectionView.CellRegistration<FirstMonthCell, MonthModel> { [weak self] cell, indexPath, viewModel in
-            guard let self = self else { return }
+        let cellRegistration = UICollectionView.CellRegistration<FirstMonthCell, MonthModel> {  cell, indexPath, viewModel in
             cell.configure(with: viewModel, indexPath: indexPath)
         }
         
@@ -74,7 +99,6 @@ extension FirstView {
             guard let self = self else { return }
             
             let newSection = years
-            print(years.count)
             
             supplementaryView.yearsLabel.text = String(newSection[indexPath.section])
             
@@ -196,4 +220,5 @@ extension FirstView {
     
     
 }
+
 

@@ -8,46 +8,34 @@
 import UIKit
 import SnapKit
 
-protocol SecondDelegate:AnyObject {
-    func getTappedData(data: TaskModel)
-}
 
 class SecondMonthCell: UICollectionViewCell, CellConfigureProtocol, UIGestureRecognizerDelegate {
     
     static var reuseIdentifier: String = "SecondMonthCell"
-    
-    weak var delegate: SecondDelegate?
 
-    var indexPath: IndexPath?
     
-    lazy var isTapped: Bool = false
-    
-    var year = 0
-    
-    private lazy var mainMonthView: UIView = {
-        let view = UIView()
-        return view
-    }()
-    
-    private lazy var dayMonthView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.gray
-        return view
-    }()
-    
-    lazy var monthView: UIView = {
-        let view = UIView()
-//        view.backgroundColor = .blue
-        return view
-    }()
-    
-    private lazy var nameMonthViewLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .red
-        label.font = UIFont.systemFont(ofSize: 60)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    // MARK: - Constants
+       private enum Constants {
+           static let labelHeight: CGFloat = 60
+           static let squareDivisor: CGFloat = 7.35
+           static let spacing: CGFloat = 3
+       }
+       
+       // MARK: - Properties
+       var indexPath: IndexPath?
+       var isTapped = false
+       var year = 0
+       
+       // MARK: - UI Components
+       private lazy var mainMonthView = UIView()
+       private lazy var dayMonthView = UIView()
+       private lazy var monthView = UIView()
+       private lazy var nameMonthViewLabel: UILabel = {
+           let label = UILabel()
+           label.textColor = .red
+           label.font = UIFont.systemFont(ofSize: Constants.labelHeight)
+           return label
+       }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -170,13 +158,14 @@ class SecondMonthCell: UICollectionViewCell, CellConfigureProtocol, UIGestureRec
             return
         }
         if (isTapped) {
-            delegate?.getTappedData(data: TaskModel(monthName: nameMonthViewLabel.text!, monthYear: year))
             label.backgroundColor = nil
             isTapped = false
+            NotificationCenter.default.post(name: .pressedDay, object: indexPath)
         } else {
-            delegate?.getTappedData(data: TaskModel(monthName: nameMonthViewLabel.text!, monthYear: year))
+
             label.backgroundColor = .red
             isTapped = true
+            NotificationCenter.default.post(name: .pressedDay, object: indexPath)
         }
 
     }

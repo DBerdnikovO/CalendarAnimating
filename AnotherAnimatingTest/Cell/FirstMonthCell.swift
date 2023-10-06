@@ -2,6 +2,7 @@ import UIKit
 //import SnapKit
 
 protocol CellConfigureProtocol: UICollectionViewCell {
+    var indexPath: IndexPath? { get set }
     static var reuseIdentifier: String { get }
     func configure<U: Hashable>(with value: U, indexPath: IndexPath)
     func relocateLabel(completion: @escaping () -> Void)
@@ -9,9 +10,15 @@ protocol CellConfigureProtocol: UICollectionViewCell {
 
 class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
     
-    
     // MARK: - Static Properties
     static let reuseIdentifier: String = "FirstMonthCell"
+    
+    // MARK: - Constants
+    private enum Constants {
+        static let labelHeight: CGFloat = 20
+        static let squareDivisor: CGFloat = 7.35
+        static let spacing: CGFloat = 1
+    }
     
     // MARK: - Instance Properties
     var indexPath: IndexPath?
@@ -32,11 +39,11 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
     
     private lazy var nameMonthViewLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 20)
         label.textColor = .red
-        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: Constants.labelHeight)
         return label
     }()
+    
     
     // MARK: - Initializers
     override init(frame: CGRect) {
@@ -53,7 +60,6 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
         super.prepareForReuse()
         monthDatesLayer.sublayers?.forEach { $0.removeFromSuperlayer() }
         monthDatesLayer.sublayers = nil
-        
     }
     
     deinit {
@@ -69,7 +75,7 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
         getMonthArray(monthArray: month.monthArray)
     }
     
-    // MARK: - Private Methods
+    // MARK: - UI Setup
     private func setupViews() {
         addSubview(mainMonthView)
         mainMonthView.addSubview(nameMonthViewLabel)
@@ -91,6 +97,7 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
         }
     }
     
+    // MARK: - Animation Methods
     func relocateLabel(completion: @escaping () -> Void) {
         layoutIfNeeded()
         UIView.animate(withDuration: 0.3, animations: { [weak self] in
@@ -111,15 +118,14 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
             make.height.equalTo(20)
         }
     }
-    
+    // MARK: - Cell add info
     private func getMonthArray(monthArray: [[Int]]) {
-        let squareSize: CGFloat = bounds.width / 7.35
-        let spacing: CGFloat = 1
+        let squareSize = bounds.width / Constants.squareDivisor
         
         for i in 0..<6 {
             for j in 0..<7 {
-                let x = CGFloat(j) * (squareSize + spacing)
-                let y = CGFloat(i) * (squareSize + spacing)
+                let x = CGFloat(j) * (squareSize + Constants.spacing)
+                let y = CGFloat(i) * (squareSize + Constants.spacing)
                 
                 let square = CATextLayer()
                 if monthArray[i][j] != 0 {
@@ -134,7 +140,7 @@ class FirstMonthCell: UICollectionViewCell, CellConfigureProtocol {
                 monthDatesLayer.addSublayer(square)
             }
         }
-        
+    
         monthView.layer.addSublayer(monthDatesLayer)
     }
 }

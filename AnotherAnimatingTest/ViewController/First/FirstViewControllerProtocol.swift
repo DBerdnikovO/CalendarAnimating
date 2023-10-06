@@ -8,9 +8,8 @@
 import UIKit
 
 
-protocol FirstViewControllerProtocol: UIViewController, FirstViewDelegate {
+protocol FirstViewControllerProtocol: UIViewController, AnimatingProtocol {
     
-
-//    var calendarView: FirstView! { get }
-
+    func didSelectCell(cell: FirstMonthCell)
+    
 }

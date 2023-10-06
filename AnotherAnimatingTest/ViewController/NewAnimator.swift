@@ -89,6 +89,7 @@ final class NewAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                     self.toViewController.view.alpha = 1.0
                 }
                 containerView.alpha = 1
+                cell.backLanbel()
             }
             transitionContext.completeTransition(finished)
         }
