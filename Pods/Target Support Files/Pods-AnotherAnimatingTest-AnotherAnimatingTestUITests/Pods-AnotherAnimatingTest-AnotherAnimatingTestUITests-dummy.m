@@ -1,5 +1,0 @@
-#import <Foundation/Foundation.h>
-@interface PodsDummy_Pods_AnotherAnimatingTest_AnotherAnimatingTestUITests : NSObject
-@end
-@implementation PodsDummy_Pods_AnotherAnimatingTest_AnotherAnimatingTestUITests
-@end

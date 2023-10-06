@@ -1,6 +1,0 @@
-framework module Pods_AnotherAnimatingTest_AnotherAnimatingTestUITests {
-  umbrella header "Pods-AnotherAnimatingTest-AnotherAnimatingTestUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
